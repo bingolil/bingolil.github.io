@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Angular学习-4-路由1 | bingolil个人主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#1A4B5A">
+    
+    
+    <meta name="keywords" content="Angular,Angular路由">
+    <meta name="description" content="路由 在 Angular 中是一个非常重要的模块，一个好的路由对项目的开发有着巨大的促进作用。 Angular 是单页面应用，在用户使用程序时，Angular 的 路由 能让用户从一个视图导航到另一个视图。 基本路由路由配置文件在 Angular 项目中，Angular 的路由配置信息一般存放在单独的文件中（如xxxx-routing.module.ts），当然，放到 Angular 的模块中也可">
+<meta name="keywords" content="Angular,Angular路由">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular学习-4-路由1">
+<meta property="og:url" content="https://bingolil.github.io/2018/12/10/angular/learn-4/index.html">
+<meta property="og:site_name" content="bingolil个人主页">
+<meta property="og:description" content="路由 在 Angular 中是一个非常重要的模块，一个好的路由对项目的开发有着巨大的促进作用。 Angular 是单页面应用，在用户使用程序时，Angular 的 路由 能让用户从一个视图导航到另一个视图。 基本路由路由配置文件在 Angular 项目中，Angular 的路由配置信息一般存放在单独的文件中（如xxxx-routing.module.ts），当然，放到 Angular 的模块中也可">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-route-home.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-route-joke.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-lazy-home.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-lazy-product.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-setting-1.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-setting-2.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-allprod.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-route-prod.png">
+<meta property="og:updated_time" content="2019-01-21T01:19:09.520Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular学习-4-路由1">
+<meta name="twitter:description" content="路由 在 Angular 中是一个非常重要的模块，一个好的路由对项目的开发有着巨大的促进作用。 Angular 是单页面应用，在用户使用程序时，Angular 的 路由 能让用户从一个视图导航到另一个视图。 基本路由路由配置文件在 Angular 项目中，Angular 的路由配置信息一般存放在单独的文件中（如xxxx-routing.module.ts），当然，放到 Angular 的模块中也可">
+<meta name="twitter:image" content="https://bingolil.github.io/images/angular-route-home.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="bingolil个人主页" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">bingolil</h5>
+          <a href="mailto:1952724246@qq.com" title="1952724246@qq.com" class="mail">1952724246@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/bingolil" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Angular学习-4-路由1</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Angular学习-4-路由1</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-12-09T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-12-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular/">Angular</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本路由"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本路由</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#路由配置文件"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">路由配置文件</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#路由相关属性"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">路由相关属性</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#示例"><span class="post-toc-number">1.3.</span> <span class="post-toc-text">示例</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#懒加载"><span class="post-toc-number">2.</span> <span class="post-toc-text">懒加载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#优势"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">优势</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#示例-1"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">示例</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#子路由"><span class="post-toc-number">3.</span> <span class="post-toc-text">子路由</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#意义"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">意义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#示例解决"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">示例解决</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#预加载"><span class="post-toc-number">4.</span> <span class="post-toc-text">预加载</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#意义-1"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">意义</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#代码准备"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">代码准备</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自带预加载策略"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">自带预加载策略</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#自定义预加载"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">自定义预加载</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-angular/learn-4"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Angular学习-4-路由1</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-12-10 00:00:00" datetime="2018-12-09T16:00:00.000Z"  itemprop="datePublished">2018-12-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular/">Angular</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p><code>路由</code> 在 <code>Angular</code> 中是一个非常重要的模块，一个好的路由对项目的开发有着巨大的促进作用。</p>
+<p><code>Angular</code> 是单页面应用，在用户使用程序时，<code>Angular</code> 的 <code>路由</code> 能让用户从一个视图导航到另一个视图。</p>
+<h2 id="基本路由"><a href="#基本路由" class="headerlink" title="基本路由"></a>基本路由</h2><h3 id="路由配置文件"><a href="#路由配置文件" class="headerlink" title="路由配置文件"></a>路由配置文件</h3><p>在 <code>Angular</code> 项目中，<code>Angular</code> 的路由配置信息一般存放在单独的文件中（如xxxx-routing.module.ts），当然，放到 <code>Angular</code> 的模块中也可以。</p>
+<p>一般来说，存放路由配置信息的文件的生成方式有两种，一是手动生成，一是通过命令自动生成。</p>
+<blockquote>
+<p><strong>手动生成</strong></p>
+</blockquote>
+<p>在 <code>Angular</code> 项目的app文件夹目录下，手动新建一个文件，名为 <code>app-routing.module.ts</code>，将路由配置信息放到该文件中。需要开发者在跟模块 <code>AppModule</code> 里面引用路由配置信息模块。</p>
+<blockquote>
+<p><strong>自动生成</strong></p>
+</blockquote>
+<p>在 <code>cmd</code> 环境中，新建项目时，增加一个 <code>--routing</code> 的参数，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng new 项目名 --routing</span><br></pre></td></tr></table></figure>
+<p>使用该命令创建项目，会在项目文件夹 <code>app</code> 下面生成 <code>app-routing.module.ts</code> 文件。</p>
+<p>由于是使用命令生成的路由配置信息文件，<code>app-routing.module.ts</code> 文件中的 <code>AppRoutingModule</code> 模块自动被 <code>AppModule</code> 根模块 <code>import</code> 了，不需要开发者在 <code>AppModule</code> 根模块里面去手动引用路由模块；<code>app.component.html</code> 页面中 <code>router-outlet</code> 占位符也会自动生成。 </p>
+<p>开发者在使用 <code>懒加载</code> 时，需要新建一个模块，新建的模块里面也存在路由，开发者也可以使用命令在创建模块时自动生成路由信息配置文件，其命令如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng g m 模块名 --routing  //最简写法</span><br></pre></td></tr></table></figure>
+<h3 id="路由相关属性"><a href="#路由相关属性" class="headerlink" title="路由相关属性"></a>路由相关属性</h3><p><code>Angular</code> 的路由中涉及到许多的属性，如下所示。</p>
+<blockquote>
+<p><strong>Rotues：</strong> 存在于路由模块中，存放路由配置信息，即那个 <code>Url</code> 对应那个组件以及在那个 <code>outlet-outlet</code> 中展示组件，其用法: <code>const routes: Routes = [ 配置信息 ]</code></p>
+</blockquote>
+<blockquote>
+<p><strong>router-outlet：</strong> 该属性是组件UI中的路由占位符，存在于组件UI中，其用法：<code>&lt;router-outlet&gt;&lt;/router-outlet&gt;</code></p>
+</blockquote>
+<blockquote>
+<p><strong>routerLink：</strong> 在组件UI中负责路由跳转，存在于组件UI中，其用法：<code>1，&lt;a routerKink=&quot;xxx&quot;&gt;xxxx&lt;/a&gt;</code>，<code>2，&lt;a [routerKink]=&quot;[&#39;xxx&#39;]&quot;&gt;xxxx&lt;/a&gt;</code></p>
+</blockquote>
+<blockquote>
+<p><strong>routerLinkActive：</strong> 当前路由被激活时的样式，存在于组件UI中，其用法：<code>&lt;a routerLinkActive=&#39;active&#39; routerKink=&quot;[&#39;xxx&#39;]&quot;&gt;xxxx&lt;/a&gt;</code>，即当前路由激活时，给当前 <code>a标签</code> 增加 <code>active</code> 样式类</p>
+</blockquote>
+<blockquote>
+<p><strong>Router：</strong> 负责在运行时执行的路由对象，可以通过其 <code>navigate()</code>  方法和 <code>navigateByUrl()</code> 方法进行路由跳转，<code>Router</code> 是一个类，在使用时，需要实例化，其用法：<code>Router.navigate([&#39;/xxx&#39;])</code></p>
+</blockquote>
+<blockquote>
+<p><strong>ActivedRoute：</strong> 代表当前激活的路由对象，保存当前路由的 <code>URL</code> 以及路由参数，这是一个类，在使用时，需要实例化，其用法：<code>1，参数订阅 ActivedRoute.params.subscribe((data)=&gt;{})</code>，<code>2，参数快照 ActivedRoute..snapshot.queryParams[&quot;id&quot;]</code></p>
+</blockquote>
+<blockquote>
+<p><strong>useHash：</strong> 其路由使用哈希展现，即多了一个 <code>#</code> 号，存在于根配置信息文件 <code>app-routing.module.ts</code> 中，其用法：<code>RouterModule.forRoot(routes,{useHash:true})</code></p>
+</blockquote>
+<blockquote>
+<p><strong>redirectTo：</strong> 路由重定向，一般存在于根路由配置文件 <code>app-routing.module.ts</code> 中，其用法：<code>{path:&#39;&#39;,redirectTo:&#39;/home&#39;,pathMatch:&#39;full&#39;}</code>，即当前路由为空时，转到路由为 <code>home</code> 的页面</p>
+</blockquote>
+<blockquote>
+<p><strong>pathMatch：</strong> 路由完全匹配，一般存在于根路由配置 <code>app-routing.module.ts</code> 文件中，其用法：<code>{path:&#39;&#39;,redirectTo:&#39;/home&#39;,pathMatch:&#39;full&#39;}</code></p>
+</blockquote>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><p>1，在 <code>cmd</code> 环境中，使用命令 <code>ng new learn-route --rouing</code> 创建 <code>learn-route</code> 项目</p>
+<p>2，<code>cd learn-route</code> 进入 <code>learn-route</code> 目录下，使用命令 <code>ng g c home</code> 创建 <code>home</code> 组件，使用命令 <code>ng g c joke</code> 创建 <code>joke</code> 组件</p>
+<p>其 <code>learn-route</code> 项目部分代码如下所示。</p>
+<p>app.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; AppRoutingModule &#125; <span class="keyword">from</span> <span class="string">'./app-routing.module'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AppComponent &#125; <span class="keyword">from</span> <span class="string">'./app.component'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; HomeComponent &#125; <span class="keyword">from</span> <span class="string">'./home/home.component'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; JokeComponent &#125; <span class="keyword">from</span> <span class="string">'./joke/joke.component'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent,</span><br><span class="line">    HomeComponent,</span><br><span class="line">    JokeComponent</span><br><span class="line">  ],</span><br><span class="line">..../代码块</span><br></pre></td></tr></table></figure></p>
+<p>app-routing.mdule.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; NgModule &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Routes, RouterModule &#125; <span class="keyword">from</span> <span class="string">'@angular/router'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [];</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  imports: [RouterModule.forRoot(routes)],</span><br><span class="line">  exports: [RouterModule]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> AppRoutingModule &#123; &#125;</span><br></pre></td></tr></table></figure></p>
+<p>app.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>3，修改代码，如下所示。<br>app-routing.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; HomeComponent &#125; <span class="keyword">from</span> <span class="string">'./home/home.component'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; JokeComponent &#125; <span class="keyword">from</span> <span class="string">'./joke/joke.component'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;path:<span class="string">''</span>,redirectTo:<span class="string">'home'</span>,pathMatch:<span class="string">'full'</span>&#125;,</span><br><span class="line">  &#123;path:<span class="string">'home'</span>,component:HomeComponent&#125;,</span><br><span class="line">  &#123;path:<span class="string">'joke'</span>,component:JokeComponent&#125;</span><br><span class="line">];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<p>app.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line">ul class="nav navbar-nav"&gt;</span><br><span class="line">  <span class="comment">&lt;!-- routerLink的两种写法 --&gt;</span>  </span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">'/home'</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/joke']"</span>&gt;</span>Joke<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>页面效果图如下所示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-route-home.png" alt="home路由" title="">
+                </div>
+                <div class="image-caption">home路由</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-route-joke.png" alt="joke路由" title="">
+                </div>
+                <div class="image-caption">joke路由</div>
+            </figure>
+<h2 id="懒加载"><a href="#懒加载" class="headerlink" title="懒加载"></a>懒加载</h2><h3 id="优势"><a href="#优势" class="headerlink" title="优势"></a>优势</h3><blockquote>
+<p><strong>模块化管理：</strong> 在实际的 <code>Angular</code> 项目中，可能存在几十上百的组件，每一个组件都会在组件所属的模块里面声明，若项目所有的组件都在根模块 <code>app.moudle.ts</code> 里面声明，那会导致根模块代码庞大，并且不易管理，使用 <code>懒加载</code> 时，将相关的组件放到同一个模块，组件在该模块声明，开发者需要修改这个模块的代码时，直接在项目中找这个模块即可。</p>
+</blockquote>
+<blockquote>
+<p><strong>用户体验：</strong> <code>Angular</code> 开发的项目是单页面应用，在实际的 <code>Angular</code> 项目中，由于 <code>Angular</code> 项目过于庞大，如果不采用 <code>懒加载</code> 模式，用户进入到项目的页面时，浏览器会请求整个项目的文件，这会导致项目的页面打开速度过慢</p>
+</blockquote>
+<h3 id="示例-1"><a href="#示例-1" class="headerlink" title="示例"></a>示例</h3><p>1，在 <code>cmd</code> 环境下使用命令 <code>ng g m poduct --routing</code> 生成需要懒加载的 <code>product</code> 模块，该命令还会自动生成懒加载模块的路由配置信息文件 <code>product-routing.module.ts</code></p>
+<p>2，使用命令 <code>ng g c product/list</code> 在 <code>product</code> 模块下生成 <code>lsit组件</code></p>
+<p>项目部分代码如下所示。<br>product.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; ProductRoutingModule &#125; <span class="keyword">from</span> <span class="string">'./product-routing.module'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; ListComponent &#125; <span class="keyword">from</span> <span class="string">'./list/list.component'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  imports: [</span><br><span class="line">    CommonModule,</span><br><span class="line">    ProductRoutingModule</span><br><span class="line">  ],</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<p>product-routing.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; NgModule &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Routes, RouterModule &#125; <span class="keyword">from</span> <span class="string">'@angular/router'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [];</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  imports: [RouterModule.forChild(routes)],</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<p>3，修改代码如下所示<br>app.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav navbar-nav"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">'/home'</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/joke']"</span>&gt;</span>Joke<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 新增链接 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/prodcut']"</span>&gt;</span>Product<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>app-routing.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;path:<span class="string">''</span>,redirectTo:<span class="string">'home'</span>,pathMatch:<span class="string">'full'</span>&#125;,</span><br><span class="line">  &#123;path:<span class="string">'home'</span>,component:HomeComponent&#125;,</span><br><span class="line">  &#123;path:<span class="string">'joke'</span>,component:JokeComponent&#125;,</span><br><span class="line">  <span class="comment">//惰性加载路由</span></span><br><span class="line">  &#123;path:<span class="string">'product'</span>,loadChildren:<span class="string">'./product/product.module#ProductModule'</span>&#125;</span><br><span class="line">];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<p>product-routing.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; ListComponent &#125; <span class="keyword">from</span> <span class="string">'./list/list.component'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;path:<span class="string">''</span>,component:ListComponent&#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  imports: [RouterModule.forChild(routes)],</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<p>其页面效果图如下所示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-lazy-home.png" alt="home路由请求的文件" title="">
+                </div>
+                <div class="image-caption">home路由请求的文件</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-lazy-product.png" alt="product路由请求的文件" title="">
+                </div>
+                <div class="image-caption">product路由请求的文件</div>
+            </figure>
+<p>4，对照上面两张图片，在 <code>home</code> 路由中请求文件和 <code>product</code> 路由中请求的文件有一定的区别，在 <code>product</code> 路由中多请求了 <code>product-product-module.js</code> 文件。即用户进入项目页面时，不会请求项目所有的文件，这提高了项目的用户体验，同时还可以将和 <code>product</code> 模块相关的组件或服务放到项目文件中的 <code>product</code> 文件夹下，进行模块化管理。</p>
+<blockquote>
+<p><strong>注意：</strong> 若初始化路由重定向路由到 <code>product</code> 下，那么 <code>product-product-module.js</code> 文件一开始就会被加载，因为 <code>product</code> 路由对应的文件中存在 <code>product-product-module.js</code> 文件</p>
+</blockquote>
+<h2 id="子路由"><a href="#子路由" class="headerlink" title="子路由"></a>子路由</h2><p>在实际 <code>Angular</code> 项目中，路由不止一层，即路由还会嵌套路由，被嵌套的路由就是子路由，又或者叫二级路由。</p>
+<h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>在 <code>惰性加载</code> 的模块 <code>setting</code> 中，存在 <code>product</code> 和 <code>joke</code> 两个页面，分别用 <code>setting/product</code> 路由和 <code>setting/joke</code> 进行管理，两个页面有一部分内容是相同的，若两个页面使用两个组件完成 <code>setting</code> 下的所有内容，那么两个页面相同的部分被实现两次，这显然增加了开发者的负担。这时，可以使用子路由解决，即路由嵌套路由。</p>
+<h3 id="示例解决"><a href="#示例解决" class="headerlink" title="示例解决"></a>示例解决</h3><p>1，使用命令 <code>ng g m setting --routing</code> 创建 <code>setting</code> 模块</p>
+<p>2，使用命令 <code>ng g c setting/layout</code>，<code>ng g c setting/product</code> 和 <code>ng g c setting/joke</code> 创建 <code>layout</code> 组件，<code>product</code> 组件和 <code>joke</code> 组件</p>
+<p>3，修改代码如下所示。<br>app.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav navbar-nav"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">'/home'</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/joke']"</span>&gt;</span>Joke<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/prodcut']"</span>&gt;</span>Product<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 新增链接 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/setting']"</span>&gt;</span>setting<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>app-routing.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;path:<span class="string">''</span>,redirectTo:<span class="string">'home'</span>,pathMatch:<span class="string">'full'</span>&#125;,</span><br><span class="line">  &#123;path:<span class="string">'home'</span>,component:HomeComponent&#125;,</span><br><span class="line">  &#123;path:<span class="string">'joke'</span>,component:JokeComponent&#125;,</span><br><span class="line">  &#123;path:<span class="string">'product'</span>,loadChildren:<span class="string">'./product/product.module#ProductModule'</span>&#125;,</span><br><span class="line">  <span class="comment">//新增setting路由</span></span><br><span class="line">  &#123;path:<span class="string">'setting'</span>,loadChildren:<span class="string">'./setting/setting.module#SettingModule'</span>&#125;</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>product/setting-routing.module.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; LayoutComponent &#125; <span class="keyword">from</span> <span class="string">'./layout/layout.component'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; ProductComponent &#125; <span class="keyword">from</span> <span class="string">'./product/product.component'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; JokeComponent &#125; <span class="keyword">from</span> <span class="string">'./joke/joke.component'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;path:<span class="string">''</span>,component:LayoutComponent,</span><br><span class="line">    children:[ <span class="comment">//子路由</span></span><br><span class="line">      &#123;path:<span class="string">''</span>,redirectTo:<span class="string">'product'</span>,pathMatch:<span class="string">'full'</span>&#125;,</span><br><span class="line">      &#123;path:<span class="string">'product'</span>,component:ProductComponent&#125;,</span><br><span class="line">      &#123;path:<span class="string">'joke'</span>,component:JokeComponent&#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<p>product/laout/layout.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"jumbotron"</span>&gt;</span><span class="tag">&lt;<span class="name">h1</span>&gt;</span>共享部分<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav nav-tabs"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">"product"</span>&gt;</span>product<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['joke']"</span>&gt;</span>joke<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 子路由占位符 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其页面效果图如下所示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-setting-1.png" alt="setting/product路由" title="">
+                </div>
+                <div class="image-caption">setting/product路由</div>
+            </figure>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-setting-2.png" alt="setting/joke路由" title="">
+                </div>
+                <div class="image-caption">setting/joke路由</div>
+            </figure>
+<p>其中共享部分可以做成一个组件，该组件在 <code>setting</code> 模块中声明，在 <code>product/laout/layout.component.html</code> 中引用也可以达到同样的效果。</p>
+<h2 id="预加载"><a href="#预加载" class="headerlink" title="预加载"></a>预加载</h2><h3 id="意义-1"><a href="#意义-1" class="headerlink" title="意义"></a>意义</h3><p>在 <code>Agnular</code> 项目中，使用 <code>懒加载</code> 时有助于提高用户体验和模块化管理项目。</p>
+<p>假如现在有一个新的模块 <code>prod</code>，开发者使用懒加载模式加载这个模块。但是开发者可以预见 <code>prod</code> 模块会被用户频繁浏览（用户初始进入项目是 <code>home</code> 路由，然后大部分用户会浏览 <code>prod</code> 模块），在加载时 <code>prod</code> 模块时，浏览器会停顿一小段时间（需要加载 <code>prod</code> 模块对应的文件），这会对降低用户体验，而预加载就是解决浏览器停顿这一小段时间的方法。</p>
+<h3 id="代码准备"><a href="#代码准备" class="headerlink" title="代码准备"></a>代码准备</h3><p>使用命令 <code>ng g m prod --routing</code> 新建 <code>prod</code> 模块，然后使用命令 <code>ng g c prod/layout</code> 在  <code>prod</code> 模块下新建 <code>layout</code> 组件。最后修改代码如下所示。</p>
+<p>app-routing.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;path:<span class="string">''</span>,redirectTo:<span class="string">'home'</span>,pathMatch:<span class="string">'full'</span>&#125;,</span><br><span class="line">  &#123;path:<span class="string">'home'</span>,component:HomeComponent&#125;,</span><br><span class="line">  &#123;path:<span class="string">'joke'</span>,component:JokeComponent&#125;,</span><br><span class="line">  &#123;path:<span class="string">'product'</span>,loadChildren:<span class="string">'./product/product.module#ProductModule'</span>&#125;,</span><br><span class="line">  &#123;path:<span class="string">'setting'</span>,loadChildren:<span class="string">'./setting/setting.module#SettingModule'</span>&#125;,</span><br><span class="line">  <span class="comment">//新增路由</span></span><br><span class="line">  &#123;path:<span class="string">'prod'</span>,loadChildren:<span class="string">'./prod/prod.module#ProdModule'</span>&#125;</span><br><span class="line">];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<p>app.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">"nav navbar-nav"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">'/home'</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/joke']"</span>&gt;</span>Joke<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/prodcut']"</span>&gt;</span>Product<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/setting']"</span>&gt;</span>setting<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 新增链接 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">"active"</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">"['/prod']"</span>&gt;</span>prod<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"container"</span>&gt;</span><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>prod-routing.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; LayoutComponent &#125; <span class="keyword">from</span> <span class="string">'./layout/layout.component'</span>;</span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;path:<span class="string">''</span>,component:LayoutComponent&#125;</span><br><span class="line">];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="自带预加载策略"><a href="#自带预加载策略" class="headerlink" title="自带预加载策略"></a>自带预加载策略</h3><p><code>Angular</code> 对于项目的预加载功能有一个自带的策略。其代码如下。<br>app-routing.module.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Routes, RouterModule, PreloadAllModules &#125; <span class="keyword">from</span> <span class="string">'@angular/router'</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  imports: [RouterModule.forRoot(routes,&#123; preloadingStrategy:  PreloadAllModules &#125;)],</span><br><span class="line">  exports: [RouterModule]</span><br><span class="line">&#125;)</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<p>在 <code>Angular</code> 项目中，使用 <code>Angular</code> 自带的预加载策略时， 只需要修改 <code>app-routing.module.ts</code> 根路由文件，在根路由文件中引入 <code>PreloadAllModules</code> 模块，并在根文件中如上使用即可。</p>
+<p>其效果图如下所示。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-allprod.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在 <code>app-routing.module.ts</code> 文件中，加载模块的模式是 <code>懒加载</code> 模式，但是由于使用了 <code>预加载</code>，从上图中可以看到在 <code>home</code> 路由时，项目加载了对应 <code>prod</code> 路由下的 <code>prod-prod-module.js</code> 文件，说明 <code>Angular</code> 自带的预加载策略使用成功。</p>
+<p>但在上图中，可以看到由于使用了预加载，加载了所有的懒加载模块，这是 <code>Angular</code> 自带加载策略的一个缺陷。</p>
+<p>对于 <code>Angular</code> 预加载，开发者可以定义符合开发者需求的预加载策略，即自定义预加载</p>
+<h3 id="自定义预加载"><a href="#自定义预加载" class="headerlink" title="自定义预加载"></a>自定义预加载</h3><p>1，使用命令 <code>ng g s own-prod</code> 新建一个服务，修改 <code>own-prod.service.ts</code> 文件如下所示。</p>
+<p>own-prod.service.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Route, PreloadingStrategy &#125; <span class="keyword">from</span> <span class="string">'@angular/router'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Observable, of &#125; <span class="keyword">from</span> <span class="string">'rxjs'</span>;</span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> OwnProdService <span class="keyword">implements</span> PreloadingStrategy&#123;</span><br><span class="line">  preload(route: Route, load: <span class="function"><span class="params">()</span> =&gt;</span> Observable&lt;<span class="built_in">any</span>&gt;): Observable&lt;<span class="built_in">any</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">if</span> (route.data &amp;&amp; route.data[<span class="string">'preload'</span>]) &#123;</span><br><span class="line">      <span class="keyword">return</span> load();</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> of(<span class="literal">null</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在根路由中使用上面新建的服务，<code>app-routing.module.ts</code> 代码如下所示。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; OwnProdService &#125; <span class="keyword">from</span> <span class="string">'./own-prod.service'</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;path:<span class="string">''</span>,redirectTo:<span class="string">'home'</span>,pathMatch:<span class="string">'full'</span>&#125;,</span><br><span class="line">  &#123;path:<span class="string">'home'</span>,component:HomeComponent&#125;,</span><br><span class="line">  &#123;path:<span class="string">'joke'</span>,component:JokeComponent&#125;,</span><br><span class="line">  &#123;path:<span class="string">'product'</span>,loadChildren:<span class="string">'./product/product.module#ProductModule'</span>&#125;,</span><br><span class="line">  &#123;path:<span class="string">'setting'</span>,loadChildren:<span class="string">'./setting/setting.module#SettingModule'</span>&#125;,</span><br><span class="line">  <span class="comment">//根据路由中data的preload的true或false判断是否预加载</span></span><br><span class="line">  &#123;path:<span class="string">'prod'</span>,loadChildren:<span class="string">'./prod/prod.module#ProdModule'</span>,data:&#123;preload:<span class="literal">true</span>&#125;&#125;</span><br><span class="line">];</span><br><span class="line"></span><br><span class="line"><span class="meta">@NgModule</span>(&#123;                                                    <span class="comment">//使用服务</span></span><br><span class="line">  imports: [RouterModule.forRoot(routes,&#123; preloadingStrategy:  OwnProdService &#125;)],</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+<p>使用自定义预加载后，在浏览器中效果图如下所示。<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-route-prod.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-01-21T01:19:09.520Z" itemprop="dateUpdated">2019-01-21 09:19:09</time>
+</span><br>
+
+
+        
+        留言：标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/12/10/angular/learn-4/" target="_blank" rel="external">https://bingolil.github.io/2018/12/10/angular/learn-4/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://bingolil.github.io">
+            <img src="/img/avatar.jpg" alt="bingolil">
+            bingolil
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular路由/">Angular路由</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://bingolil.github.io/2018/12/10/angular/learn-4/&title=《Angular学习-4-路由1》 — bingolil个人主页&pic=https://bingolil.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://bingolil.github.io/2018/12/10/angular/learn-4/&title=《Angular学习-4-路由1》 — bingolil个人主页&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://bingolil.github.io/2018/12/10/angular/learn-4/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Angular学习-4-路由1》 — bingolil个人主页&url=https://bingolil.github.io/2018/12/10/angular/learn-4/&via=https://bingolil.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://bingolil.github.io/2018/12/10/angular/learn-4/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/12/19/angular/learn-5/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Angular学习-5-路由2</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/11/23/angular/learn-3/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Angular学习-3-生命周期钩子</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+<section class="comments" id="comments">
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script src="http://v2.uyan.cc/code/uyan.js?uid=true"></script>
+    <!-- UY END -->
+</section>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '06bf05df047dfdb72d5e',
+        clientSecret: 'f4dde2952395190a291b6b82524d0e4e8841ba69',
+        id: window.location.pathname,
+        repo: 'bingolil.github.io',
+        owner: 'bingolil',
+        admin: 'bingolil'
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>bingolil &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://bingolil.github.io/2018/12/10/angular/learn-4/&title=《Angular学习-4-路由1》 — bingolil个人主页&pic=https://bingolil.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://bingolil.github.io/2018/12/10/angular/learn-4/&title=《Angular学习-4-路由1》 — bingolil个人主页&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://bingolil.github.io/2018/12/10/angular/learn-4/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Angular学习-4-路由1》 — bingolil个人主页&url=https://bingolil.github.io/2018/12/10/angular/learn-4/&via=https://bingolil.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://bingolil.github.io/2018/12/10/angular/learn-4/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://bingolil.github.io/2018/12/10/angular/learn-4/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

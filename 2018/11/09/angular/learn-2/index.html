@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Angular学习-2-组件通讯 | bingolil个人主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#1A4B5A">
+    
+    
+    <meta name="keywords" content="Angular,Angular组件通讯">
+    <meta name="description" content="摘要组件就像是一个个的零件，我们需要按照 Angular  定义的规则将它们组装起来，而且它们之间可以进行交流通讯，这样才组成一个有机的完整系统。在一个完整的系统中，组件会形成树形结构，如下图所示。">
+<meta name="keywords" content="Angular,Angular组件通讯">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular学习-2-组件通讯">
+<meta property="og:url" content="https://bingolil.github.io/2018/11/09/angular/learn-2/index.html">
+<meta property="og:site_name" content="bingolil个人主页">
+<meta property="og:description" content="摘要组件就像是一个个的零件，我们需要按照 Angular  定义的规则将它们组装起来，而且它们之间可以进行交流通讯，这样才组成一个有机的完整系统。在一个完整的系统中，组件会形成树形结构，如下图所示。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://bingolil.github.io/images/com-tree.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-service.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-cl.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-session.png">
+<meta property="og:updated_time" content="2019-01-21T01:19:09.507Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular学习-2-组件通讯">
+<meta name="twitter:description" content="摘要组件就像是一个个的零件，我们需要按照 Angular  定义的规则将它们组装起来，而且它们之间可以进行交流通讯，这样才组成一个有机的完整系统。在一个完整的系统中，组件会形成树形结构，如下图所示。">
+<meta name="twitter:image" content="https://bingolil.github.io/images/com-tree.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="bingolil个人主页" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">bingolil</h5>
+          <a href="mailto:1952724246@qq.com" title="1952724246@qq.com" class="mail">1952724246@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/bingolil" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Angular学习-2-组件通讯</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Angular学习-2-组件通讯</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-08T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-11-09
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular/">Angular</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#摘要"><span class="post-toc-number">1.</span> <span class="post-toc-text">摘要</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#直接调用"><span class="post-toc-number">2.</span> <span class="post-toc-text">直接调用</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Input-和-Output"><span class="post-toc-number">3.</span> <span class="post-toc-text">@Input 和 @Output</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Input"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">@Input</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Output"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">@Output</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Service"><span class="post-toc-number">4.</span> <span class="post-toc-text">Service</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#Service优点"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">Service优点</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#版本区别"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">版本区别</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#依赖注入（Angular5）"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">依赖注入（Angular5）</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#相依注入（Angular6）"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">相依注入（Angular6）</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#cookie-或-localstorage"><span class="post-toc-number">5.</span> <span class="post-toc-text">cookie 或 localstorage</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Session"><span class="post-toc-number">6.</span> <span class="post-toc-text">Session</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-angular/learn-2"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Angular学习-2-组件通讯</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-09 00:00:00" datetime="2018-11-08T16:00:00.000Z"  itemprop="datePublished">2018-11-09</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular/">Angular</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="摘要"><a href="#摘要" class="headerlink" title="摘要"></a>摘要</h2><p>组件就像是一个个的零件，我们需要按照 <code>Angular</code>  定义的规则将它们组装起来，而且它们之间可以进行交流通讯，这样才组成一个有机的完整系统。<br>在一个完整的系统中，组件会形成树形结构，如下图所示。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/com-tree.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><code>Angular</code> 组件间的典型通讯方式有以下几种：</p>
+<blockquote>
+<ul>
+<li>直接的父子关系：父组件访问子组件的 <code>public</code> 属性和方法</li>
+<li>直接的父子关系：子组件借助于 <code>Input</code> 和 <code>Output</code> 和父组件进行通讯</li>
+<li>没有直接关系：借助于 <code>service</code> 单例进行通讯</li>
+<li>利用浏览器的 <code>cookie</code> 和 <code>localStorage</code> 存储进行通讯</li>
+<li>利用 <code>session</code> 进行通讯</li>
+</ul>
+</blockquote>
+<p>其它前端框架的组件间通讯方式也和上面几种方式差不多，比如 <code>vue</code> 和 <code>react</code> </p>
+<h2 id="直接调用"><a href="#直接调用" class="headerlink" title="直接调用"></a>直接调用</h2><p>对于组件间的关系是父子关系，父组件可以直接访问子组件里面的 <code>public</code> 方法和属性。其父组件代码如下<br>parent.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-child</span> #<span class="attr">child</span>&gt;</span><span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">"child.childFn()"</span> <span class="attr">class</span>=<span class="string">"btn btn-success"</span>&gt;</span>调用子组件</span><br><span class="line">方法<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>通过在模板里面定义局部变量的方式来直接调用子组件里面的 <code>public</code> 型方法，该段代码表达的意思是父组件中点击 <code>调用子组件方法</code>  按钮，调用 <code>child</code> 中的 <code>public</code> 方法 <code>childFn()</code>。而子组件代码如下<br>child.component.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> childFn():<span class="built_in">void</span>&#123; <span class="comment">//public可以要，可以不用，</span></span><br><span class="line">                       <span class="comment">//angular变量和方法默认为public类型</span></span><br><span class="line"> <span class="built_in">console</span>.log(<span class="string">"点击事件发生在父组件"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>运行该项目，在浏览器中，点击 <code>调用子组件方法</code> 按钮，按 <code>f12</code> 查看控制台，可以看到输出 <code>点击事件发生在父组件</code><br>该方式是在组件的模板 <code>parent.compontent.html</code> 中调用子组件，如果需要在父组件本身 <code>parent.compontent.ts</code> 中调用子组件，在父组件中需要引入 <code>ViewChild</code> 装饰器，代码如下所示<br>parent.component.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ViewChild &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; ChildComponent &#125; <span class="keyword">from</span> <span class="string">'../child/child.component.ts'</span>;</span><br><span class="line"></span><br><span class="line">..... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@ViewChild</span>(ChildComponent)</span><br><span class="line"><span class="keyword">private</span> child: ChildComponent;</span><br></pre></td></tr></table></figure></p>
+<p>在父组件的ts文件中，<code>child</code> 代表的是子组件，这样就可以调用子组件的 <code>public</code> 方法或属性，关于 <code>@viewChild</code> 装饰器以后会详细介绍。</p>
+<h2 id="Input-和-Output"><a href="#Input-和-Output" class="headerlink" title="@Input 和 @Output"></a>@Input 和 @Output</h2><p><code>@Input</code> 和 <code>@Output</code> 是 <code>Angular</code> 提供的装饰器，子组件和父组件之间的通讯可以用到这两个装饰器，并且在 <code>Angular</code> 项目的 <code>通用组件</code>（即将多处相似的模板提取出来，重写成一个组件，这个组件在项目中多处被使用） 中经常被使用。</p>
+<h3 id="Input"><a href="#Input" class="headerlink" title="@Input"></a>@Input</h3><p><code>@Input</code> 装饰器是子组件获取父组件的属性，代码如下所示<br>parent.component.html（父组件模板）<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-child</span> <span class="attr">comVar</span>=<span class="string">"父组件模板变量"</span>&gt;</span><span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>child.component.ts（子组件）<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; OnInit, Input &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">..... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Input</span>() comVar: <span class="built_in">string</span>=<span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">ngOnInit()&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.comVar);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以在浏览器控制台中看到输出 <code>父组件模板变量</code><br>上面的变量是在模板中定义，也可以采用 <code>Angular</code> 的属性绑定机制，在父组件 <code>parent.component.ts</code> 中定义数据，在模板 <code>parent.component.html</code> 中使用，代码如下所示<br>parent.component.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">..... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">comVar=<span class="string">'父组件变量'</span></span><br></pre></td></tr></table></figure></p>
+<p>parent.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-child</span> [<span class="attr">varParent</span>]=<span class="string">"comVar"</span>&gt;</span><span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>其子组件代码如下所示<br>child.component.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; OnInit, Input &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">..... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Input</span>() varParent: <span class="built_in">string</span>=<span class="string">''</span>;</span><br><span class="line"></span><br><span class="line">ngOnInit()&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="keyword">this</span>.varParent);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>可以在浏览器的控制台中看到输出 <code>父组件变量</code></p>
+<h3 id="Output"><a href="#Output" class="headerlink" title="@Output"></a>@Output</h3><p><code>@Output</code> 的本质是事件机制，我们用它来监听子组件中的事件，即子组件发生了某个事件，通知父组件，代码如下所示</p>
+<p>child.component.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; EventEmitter, Output &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">childStr:<span class="built_in">string</span>= <span class="string">'子组件字符串'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Output</span>() event=<span class="keyword">new</span> EventEmitter();</span><br><span class="line"></span><br><span class="line">doEmit()&#123;</span><br><span class="line">  <span class="keyword">this</span>.event.emit(<span class="keyword">this</span>.childStr);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>child.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">"doEmit()"</span> <span class="attr">class</span>=<span class="string">"btn btn-success"</span>&gt;</span>派发事件<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>其父组件代码如下所示<br>parent.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- event对应的是子组件中 new EventEmitter() --&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- childEvent($event)对应的是父组件中的事件 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-child</span> (<span class="attr">event</span>)=<span class="string">"childEvent($event)"</span>&gt;</span><span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>parent.component.ts</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line">childEvent(event)&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(event);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在浏览器中，点击子组件的 <code>派发事件</code> 按钮，可以在控制台看到输出 <code>子组件字符串</code> ，并且每点击一次，其父组件就会在控制台输出一次。</p>
+<h2 id="Service"><a href="#Service" class="headerlink" title="Service"></a>Service</h2><p>服务（<code>Angular6</code> 版本）通讯模式如下图所示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-service.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="Service优点"><a href="#Service优点" class="headerlink" title="Service优点"></a>Service优点</h3><p>很明显，上述两种 <strong>直接调用</strong> 和 <strong>Input 和 Output</strong> 组件间的通讯方式有一定的局限，即组件间的关系必须是父组件和子组件。在完整 <code>Angular</code> 项目中，组件与组件之间可能不存在直接关系，但组件之间需要进行通讯，这时就需要使用 <code>Angular</code> 提供的 <code>service</code> 功能，使用 <code>service</code> ，在同一个项目中，各个组件之间都可以进行通讯。</p>
+<h3 id="版本区别"><a href="#版本区别" class="headerlink" title="版本区别"></a>版本区别</h3><p>在 <code>Angular6</code> 版本以前，<code>Angular</code> 的服务（<code>service</code>）采用的是 <code>依赖注入</code> 方式，而 <code>Angular6</code> 版本采用的是 <code>相依注入</code> 方式。</p>
+<h3 id="依赖注入（Angular5）"><a href="#依赖注入（Angular5）" class="headerlink" title="依赖注入（Angular5）"></a>依赖注入（Angular5）</h3><p>由于依赖注入存在于 <code>Angular6</code> 版本以前，而且 <code>Angular7</code> 版本也出来不久，一般开发项目都是采用最新技术，所以关于 <code>依赖注入</code> 可以了解一下，看其使用机制。代码如下所示<br>定义一个服务 <code>CommunicateService</code></p>
+<p>communicate.service.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; Subject &#125; <span class="keyword">from</span> <span class="string">'rxjs/Subject'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Observable &#125; <span class="keyword">from</span> <span class="string">'rxjs/Observable'</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> CommunicateService &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> eventBus=<span class="keyword">new</span> Subject&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123; &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在组件中使用该服务需要在组件所在模块中配置注入器（也可以在组件中配置），其代码如下所示<br>app.module.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; CommunicateService &#125; <span class="keyword">from</span> <span class="string">'./communicate.service'</span>;</span><br><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">providers: [CommunicateService],</span><br><span class="line">.... <span class="comment">//代码块</span></span><br></pre></td></tr></table></figure></p>
+<p>在A组件中，使用该服务（<code>service</code>）<br>A.component.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; CommunicateService &#125; <span class="keyword">from</span> <span class="string">'../communicate.service'</span>;</span><br><span class="line"></span><br><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> setEventBus():<span class="built_in">void</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.communicateService.eventBus.next(<span class="string">"触发service"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>A组件模板代码如下所示<br>A.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">"setEventBus()"</span> <span class="attr">class</span>=<span class="string">"btn btn-success"</span>&gt;</span>点击<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在B组件中，使用该服务（<code>service</code>）<br>B.component.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; CommunicateService &#125; <span class="keyword">from</span> <span class="string">'../communicate.service'</span>;</span><br><span class="line"></span><br><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">constructor</span>(<span class="params"><span class="keyword">public</span> communicateService:CommunicateService</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">ngOnInit() &#123;</span><br><span class="line">  <span class="keyword">this</span>.communicateService.eventBus.subscribe(<span class="function">(<span class="params">value</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>点击A组件模板中的 <code>点击</code> 按钮，可以在控制台输出 <code>触发service</code> ，而且这是由B组件输出A组件中定义的值，即实现了通讯。</p>
+<h3 id="相依注入（Angular6）"><a href="#相依注入（Angular6）" class="headerlink" title="相依注入（Angular6）"></a>相依注入（Angular6）</h3><p>在 <code>Angular6</code> 版本中，对于 <code>Service</code> ，框架采用了相依注入的模式。即在 <code>Angular5</code> 版本中的配置注入器由框架自动完成。其代码如下所示<br>communicate.service.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; Subject &#125; <span class="keyword">from</span> <span class="string">'rxjs/Subject'</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  providedIn: <span class="string">'root'</span> <span class="comment">//与Angular5版本的区别</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> CommunicateService &#123;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> eventBus=<span class="keyword">new</span> Subject&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="keyword">constructor</span>(<span class="params"></span>) &#123; &#125;</span><br><span class="line">  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在上述代码中，<code>provideIn</code> 为 <code>root</code>，即在项目中各个组件都可以使用该服务，若只想在某个模块中使用该服务，在服务中引入模块名，将代码中的 <code>root</code> 改成 <code>模块名</code> 即可。<br>在A组件中，使用该服务（<code>service</code>）<br>A.component.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; CommunicateService &#125; <span class="keyword">from</span> <span class="string">'../communicate.service'</span>;</span><br><span class="line"></span><br><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> setEventBus():<span class="built_in">void</span>&#123;</span><br><span class="line">  <span class="keyword">this</span>.communicateService.eventBus.next(<span class="string">"触发service"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>A组件模板代码如下所示<br>A.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">"setEventBus()"</span> <span class="attr">class</span>=<span class="string">"btn btn-success"</span>&gt;</span>点击<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在B组件中，使用该服务（<code>service</code>）<br>B.component.ts<br><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; CommunicateService &#125; <span class="keyword">from</span> <span class="string">'../communicate.service'</span>;</span><br><span class="line"></span><br><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">constructor</span>(<span class="params"><span class="keyword">public</span> communicateService:CommunicateService</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">ngOnInit() &#123;</span><br><span class="line">  <span class="keyword">this</span>.communicateService.eventBus.subscribe(<span class="function">(<span class="params">value</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(value)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>点击 <code>A组件</code> 模板中的 <code>点击</code> 按钮，可以在控制台输出 <code>触发service</code> ，而且这是由 <code>B组件</code> 输出 <code>A组件</code> 中定义的值，即实现了通讯。</p>
+<h2 id="cookie-或-localstorage"><a href="#cookie-或-localstorage" class="headerlink" title="cookie 或 localstorage"></a>cookie 或 localstorage</h2><p>组件与组件间的通讯也可以使用浏览器的自带功能，即 <code>cookie</code> 或 <code>localstorage</code>，其模式如下图所示。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-cl.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>在A组件中写入 <code>cookie</code> 或 <code>localstorage</code> 代码如下所示<br>A.component.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">public</span> setLocal():<span class="built_in">void</span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.localStorage.setItem(<span class="string">"json"</span>,<span class="built_in">JSON</span>.stringify(&#123;name:<span class="string">'jack'</span>,age:<span class="number">24</span>&#125;));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
+<p>A模板代码如下所示<br>A.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">"setLocal()"</span> <span class="attr">class</span>=<span class="string">"btn btn-success"</span>&gt;</span>设置localstorage<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在B组件中获取 <code>cookie</code> 或 <code>localstorage</code> 代码如下所示<br>B.component.ts<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> conLocal():<span class="built_in">void</span>&#123;</span><br><span class="line">  <span class="keyword">var</span> json=<span class="built_in">window</span>.localStorage.getItem(<span class="string">"json"</span>);</span><br><span class="line">  <span class="keyword">var</span> obj=<span class="built_in">JSON</span>.parse(json);</span><br><span class="line">  <span class="built_in">console</span>.log(obj);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>B组件模板代码如下所示<br>B.component.html<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">"conLocal()"</span> <span class="attr">class</span>=<span class="string">"btn btn-success"</span>&gt;</span>输出localstorage<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<p>在浏览器中，点击A组件中 <code>设置localstorage</code> 按钮，然后点击B组件中 <code>输出localstorage</code> 按钮，可以在控制台输出A组件中设置的 <code>json</code> 对象，即采用 <code>cookie</code> 或 <code>localstorage</code> 的通讯方式成功。</p>
+<h2 id="Session"><a href="#Session" class="headerlink" title="Session"></a>Session</h2><p>利用session在组件间的通讯模式如下图所示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-session.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p><code>Session</code> ：在计算机中，尤其是在网络应用中，称为“会话控制”。<code>Session</code>  对象存储特定用户会话所需的属性及配置信息。这样，当用户在应用程序的 <code>Web</code> 页之间跳转时，存储在 <code>Session</code>  对象中的变量将不会丢失，而是在整个用户会话中一直存在下去。</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-01-21T01:19:09.507Z" itemprop="dateUpdated">2019-01-21 09:19:09</time>
+</span><br>
+
+
+        
+        留言：标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/11/09/angular/learn-2/" target="_blank" rel="external">https://bingolil.github.io/2018/11/09/angular/learn-2/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://bingolil.github.io">
+            <img src="/img/avatar.jpg" alt="bingolil">
+            bingolil
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular组件通讯/">Angular组件通讯</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://bingolil.github.io/2018/11/09/angular/learn-2/&title=《Angular学习-2-组件通讯》 — bingolil个人主页&pic=https://bingolil.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://bingolil.github.io/2018/11/09/angular/learn-2/&title=《Angular学习-2-组件通讯》 — bingolil个人主页&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://bingolil.github.io/2018/11/09/angular/learn-2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Angular学习-2-组件通讯》 — bingolil个人主页&url=https://bingolil.github.io/2018/11/09/angular/learn-2/&via=https://bingolil.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://bingolil.github.io/2018/11/09/angular/learn-2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/23/angular/learn-3/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Angular学习-3-生命周期钩子</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/11/02/angular/learn-1/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">Angular学习-1-新手入门</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+<section class="comments" id="comments">
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script src="http://v2.uyan.cc/code/uyan.js?uid=true"></script>
+    <!-- UY END -->
+</section>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '06bf05df047dfdb72d5e',
+        clientSecret: 'f4dde2952395190a291b6b82524d0e4e8841ba69',
+        id: window.location.pathname,
+        repo: 'bingolil.github.io',
+        owner: 'bingolil',
+        admin: 'bingolil'
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>bingolil &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://bingolil.github.io/2018/11/09/angular/learn-2/&title=《Angular学习-2-组件通讯》 — bingolil个人主页&pic=https://bingolil.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://bingolil.github.io/2018/11/09/angular/learn-2/&title=《Angular学习-2-组件通讯》 — bingolil个人主页&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://bingolil.github.io/2018/11/09/angular/learn-2/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Angular学习-2-组件通讯》 — bingolil个人主页&url=https://bingolil.github.io/2018/11/09/angular/learn-2/&via=https://bingolil.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://bingolil.github.io/2018/11/09/angular/learn-2/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://bingolil.github.io/2018/11/09/angular/learn-2/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>

@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>Angular学习-1-新手入门 | bingolil个人主页</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#1A4B5A">
+    
+    
+    <meta name="keywords" content="Angular安装,Angular">
+    <meta name="description" content="安装Angular6前提准备：电脑上已经存在 node.js（版本 为8.X或者10.X），因为使用 Angular 一般都需要它的 angular/cli 脚手架，需要使用 ndoe.js 的包管理器 npm。安装的 Angular 版本是 Angular6，进入电脑的 cmd 命令行环境下，运行如下命令1npm install -g @angular/cli 安装完毕后，在该环境下运行如下命令">
+<meta name="keywords" content="Angular安装,Angular">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular学习-1-新手入门">
+<meta property="og:url" content="https://bingolil.github.io/2018/11/02/angular/learn-1/index.html">
+<meta property="og:site_name" content="bingolil个人主页">
+<meta property="og:description" content="安装Angular6前提准备：电脑上已经存在 node.js（版本 为8.X或者10.X），因为使用 Angular 一般都需要它的 angular/cli 脚手架，需要使用 ndoe.js 的包管理器 npm。安装的 Angular 版本是 Angular6，进入电脑的 cmd 命令行环境下，运行如下命令1npm install -g @angular/cli 安装完毕后，在该环境下运行如下命令">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-verison.png">
+<meta property="og:image" content="https://bingolil.github.io/images/csh-angular.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-file.png">
+<meta property="og:image" content="https://bingolil.github.io/images/polyfill.png">
+<meta property="og:image" content="https://bingolil.github.io/images/ng-help.png">
+<meta property="og:image" content="https://bingolil.github.io/images/ng-zorro-ant.png">
+<meta property="og:updated_time" content="2019-01-21T01:19:09.491Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Angular学习-1-新手入门">
+<meta name="twitter:description" content="安装Angular6前提准备：电脑上已经存在 node.js（版本 为8.X或者10.X），因为使用 Angular 一般都需要它的 angular/cli 脚手架，需要使用 ndoe.js 的包管理器 npm。安装的 Angular 版本是 Angular6，进入电脑的 cmd 命令行环境下，运行如下命令1npm install -g @angular/cli 安装完毕后，在该环境下运行如下命令">
+<meta name="twitter:image" content="https://bingolil.github.io/images/angular-verison.png">
+    
+        <link rel="alternate" type="application/atom+xml" title="bingolil个人主页" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="/" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">bingolil</h5>
+          <a href="mailto:1952724246@qq.com" title="1952724246@qq.com" class="mail">1952724246@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                Archives
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                Tags
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                Categories
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/bingolil" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Angular学习-1-新手入门</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Angular学习-1-新手入门</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-11-01T16:00:00.000Z" itemprop="datePublished" class="page-time">
+  2018-11-02
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular/">Angular</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#安装Angular6"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装Angular6</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#新建项目"><span class="post-toc-number">2.</span> <span class="post-toc-text">新建项目</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Angular6项目文件"><span class="post-toc-number">3.</span> <span class="post-toc-text">Angular6项目文件</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#angular-json"><span class="post-toc-number">3.1.</span> <span class="post-toc-text">angular.json</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#package-json"><span class="post-toc-number">3.2.</span> <span class="post-toc-text">package.json</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#src-main-ts"><span class="post-toc-number">3.3.</span> <span class="post-toc-text">src/main.ts</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#src-polyfill-ts"><span class="post-toc-number">3.4.</span> <span class="post-toc-text">src/polyfill.ts</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#src-index-html"><span class="post-toc-number">3.5.</span> <span class="post-toc-text">src/index.html</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#src-app-app-module-ts"><span class="post-toc-number">3.6.</span> <span class="post-toc-text">src/app/app.module.ts</span></a></li></ol></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#Angular6命令大全"><span class="post-toc-number">4.</span> <span class="post-toc-text">Angular6命令大全</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ng-add"><span class="post-toc-number">4.1.</span> <span class="post-toc-text">ng add</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ng-new"><span class="post-toc-number">4.2.</span> <span class="post-toc-text">ng new</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ng-generate"><span class="post-toc-number">4.3.</span> <span class="post-toc-text">ng generate</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#ng-build"><span class="post-toc-number">4.4.</span> <span class="post-toc-text">ng build</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#其它命令"><span class="post-toc-number">4.5.</span> <span class="post-toc-text">其它命令</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-angular/learn-1"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Angular学习-1-新手入门</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-11-02 00:00:00" datetime="2018-11-01T16:00:00.000Z"  itemprop="datePublished">2018-11-02</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/Angular/">Angular</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h2 id="安装Angular6"><a href="#安装Angular6" class="headerlink" title="安装Angular6"></a>安装Angular6</h2><p>前提准备：电脑上已经存在 <code>node.js</code>（版本 为8.X或者10.X），因为使用 <code>Angular</code> 一般都需要它的 <code>angular/cli</code> 脚手架，需要使用 <code>ndoe.js</code> 的包管理器 <code>npm</code>。<br>安装的 <code>Angular</code> 版本是 <code>Angular6</code>，进入电脑的 <code>cmd</code> 命令行环境下，运行如下命令<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g <span class="meta">@angular</span>/cli</span><br></pre></td></tr></table></figure></p>
+<p>安装完毕后，在该环境下运行如下命令<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng -version</span><br></pre></td></tr></table></figure></p>
+<p>出现如下图所示，代表安装成功</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-verison.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><p>在 <code>cmd</code> 命令行环境下，运行以下命令<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng <span class="keyword">new</span> myApp</span><br></pre></td></tr></table></figure></p>
+<p>然后等待 <code>angular/cli</code> 脚手架自动新建一个 <code>myApp</code> 的项目，然后 <code>cd myApp</code> 目录下，运行以下命令<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ng server --open <span class="comment">//open是参数，即运行成功后自动打开</span></span><br><span class="line">                 <span class="comment">//浏览器，并进入本地4200端口界面</span></span><br></pre></td></tr></table></figure></p>
+<p>在浏览器的本地4200端口出现如下图所示。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/csh-angular.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h2 id="Angular6项目文件"><a href="#Angular6项目文件" class="headerlink" title="Angular6项目文件"></a>Angular6项目文件</h2><p><code>Angular</code> 新建项目的目录结构如下所示</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/angular-file.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<h3 id="angular-json"><a href="#angular-json" class="headerlink" title="angular.json"></a>angular.json</h3><p>在 <code>Angular6</code> 以前，该文件名为.angular.json，<code>Angular6</code> 改成了angular.json，少了一个小数点，这个文件是脚手架的核心配置文件。<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"projects"</span>: &#123;</span><br><span class="line">    <span class="string">"myApp"</span>: &#123;</span><br><span class="line">      <span class="string">"root"</span>: <span class="string">""</span>, <span class="comment">//项目的根</span></span><br><span class="line">      <span class="string">"sourceRoot"</span>: <span class="string">"src"</span>, <span class="comment">//项目的源码地址，即项目源码都在src文件夹下</span></span><br><span class="line">      <span class="string">"projectType"</span>: <span class="string">"application"</span>,</span><br><span class="line">      <span class="string">"prefix"</span>: <span class="string">"app"</span>, <span class="comment">//前缀，新建组件时，其选择器为 'app-组件名'</span></span><br><span class="line">      <span class="string">"schematics"</span>: &#123;&#125;,</span><br><span class="line">      <span class="string">"architect"</span>: &#123;</span><br><span class="line">        <span class="string">"build"</span>: &#123; <span class="comment">//项目打包部分</span></span><br><span class="line">          <span class="string">"builder"</span>: <span class="string">"@angular-devkit/build-angular:browser"</span>,</span><br><span class="line">          <span class="string">"options"</span>: &#123;</span><br><span class="line">            <span class="string">"outputPath"</span>: <span class="string">"dist/myApp"</span>, <span class="comment">//打包后的项目地址</span></span><br><span class="line">            <span class="string">"index"</span>: <span class="string">"src/index.html"</span>,</span><br><span class="line">            <span class="string">"main"</span>: <span class="string">"src/main.ts"</span>,</span><br><span class="line">            <span class="string">"polyfills"</span>: <span class="string">"src/polyfills.ts"</span>, <span class="comment">//项目的腻子文件</span></span><br><span class="line">            <span class="string">"tsConfig"</span>: <span class="string">"src/tsconfig.app.json"</span>,</span><br><span class="line">            <span class="string">"assets"</span>: [ <span class="comment">//项目在资源地址</span></span><br><span class="line">              <span class="string">"src/favicon.ico"</span>,</span><br><span class="line">              <span class="string">"src/assets"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"styles"</span>: [ <span class="comment">//项目引入的css文件</span></span><br><span class="line">              <span class="string">"src/styles.css"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">"scripts"</span>: [] <span class="comment">//项目引入的js文件</span></span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure></p>
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>在项目下面存在 <code>pack.json</code> 文件，该 <code>json</code> 文件存放了项目的信息</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"name"</span>: <span class="string">"my-app"</span>, <span class="comment">//项目名称</span></span><br><span class="line">  <span class="string">"version"</span>: <span class="string">"0.0.0"</span>, <span class="comment">//项目版本</span></span><br><span class="line">  <span class="string">"scripts"</span>: &#123;</span><br><span class="line">    <span class="string">"ng"</span>: <span class="string">"ng"</span>,</span><br><span class="line">    <span class="string">"start"</span>: <span class="string">"ng serve"</span>, <span class="comment">//项目运行命令</span></span><br><span class="line">    <span class="string">"build"</span>: <span class="string">"ng build"</span>, <span class="comment">//项目打包命令</span></span><br><span class="line">    <span class="string">"test"</span>: <span class="string">"ng test"</span>, <span class="comment">//项目测试命令</span></span><br><span class="line">    <span class="string">"lint"</span>: <span class="string">"ng lint"</span>,</span><br><span class="line">    <span class="string">"e2e"</span>: <span class="string">"ng e2e"</span> <span class="comment">//项目端到端测试命令</span></span><br></pre></td></tr></table></figure>
+<h3 id="src-main-ts"><a href="#src-main-ts" class="headerlink" title="src/main.ts"></a>src/main.ts</h3><p>这个文件记录了项目从哪个模块开始运行<br><figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; enableProdMode &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; platformBrowserDynamic &#125; <span class="keyword">from</span> <span class="string">'@angular/platform-browser-dynamic'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; AppModule &#125; <span class="keyword">from</span> <span class="string">'./app/app.module'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; environment &#125; <span class="keyword">from</span> <span class="string">'./environments/environment'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (environment.production) &#123;</span><br><span class="line">  enableProdMode();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">platformBrowserDynamic().bootstrapModule(AppModule)</span><br><span class="line">  .catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br></pre></td></tr></table></figure></p>
+<h3 id="src-polyfill-ts"><a href="#src-polyfill-ts" class="headerlink" title="src/polyfill.ts"></a>src/polyfill.ts</h3><p>这个文件叫做腻子脚本，<code>Angular</code> 是默认对 <code>ie浏览器</code> 是不支持的，即新建项目后，在 <code>ie浏览器</code> 的本地4200端口页面是一片空白，将以下的注释取消，在ie浏览器中可以看到页面。<br><strong>将项目的默认注释取消后，其对i e浏览器 的支持也不是特别好，<a href="https://angular.io/" target="_blank" rel="noopener">Angualr官网</a>在ie11中有的页面页打不开</strong><br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/polyfill.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h3 id="src-index-html"><a href="#src-index-html" class="headerlink" title="src/index.html"></a>src/index.html</h3><p>该文件记录了页面是从开始模块 (<code>AppModule</code>) 中声明的哪一个组件开始<br><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">"utf-8"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">base</span> <span class="attr">href</span>=<span class="string">"/"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">"viewport"</span> <span class="attr">content</span>=<span class="string">"width=device-width, initial-scale=1"</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">"icon"</span> <span class="attr">type</span>=<span class="string">"image/x-icon"</span> <span class="attr">href</span>=<span class="string">"favicon.ico"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">app-root</span>&gt;</span><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span> //从AppModule的app-root组件开始展示页面</span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h3 id="src-app-app-module-ts"><a href="#src-app-app-module-ts" class="headerlink" title="src/app/app.module.ts"></a>src/app/app.module.ts</h3><p>这个文件是项目默认的根模块</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; BrowserModule &#125; <span class="keyword">from</span> <span class="string">'@angular/platform-browser'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; NgModule &#125; <span class="keyword">from</span> <span class="string">'@angular/core'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AppComponent &#125; <span class="keyword">from</span> <span class="string">'./app.component'</span>;</span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  declarations: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  imports: [</span><br><span class="line">    BrowserModule</span><br><span class="line">  ],</span><br><span class="line">  providers: [],</span><br><span class="line">  bootstrap: [AppComponent] <span class="comment">//bootstrap代表从哪个组件开始编译</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> AppModule &#123; &#125;</span><br></pre></td></tr></table></figure>
+<p>在 <code>src/main.ts</code> 中引入的启动模块就这个模块，所以这个模块也叫做项目的根模块，在这个模块中，默认定义了一个根组件，即 <code>AppComponent</code>，这个组件定义的选择器是  <code>app-root</code>，这个选择器在 <code>src/index.html</code> 中被使用，即这个组件也叫做根组件。<br><strong>以上文件为 Angular 项目的主要的重要文件</strong></p>
+<h2 id="Angular6命令大全"><a href="#Angular6命令大全" class="headerlink" title="Angular6命令大全"></a>Angular6命令大全</h2><p><code>Angular</code> 为开发者者提供了诸多帮助，在 <code>cmd</code> 环境下，使用以下命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng --help</span><br></pre></td></tr></table></figure></p>
+<p>其命令如下图所示<br><figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/ng-help.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure></p>
+<h3 id="ng-add"><a href="#ng-add" class="headerlink" title="ng add"></a>ng add</h3><p><code>ng add</code> 是 <code>Angular6</code> 中新出现的命令，该命令使得向项目中添加新功能更加的方便。<br>例如，在项目根目录下运行如下命令添加 <strong><code>ng-zorro</code></strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng add ng-zorro-antd</span><br></pre></td></tr></table></figure></p>
+<p>命令运行完成后，使用 <code>ng serve</code> 运行项目，浏览器打开本地4200端口，出现下图。</p>
+<figure class="image-bubble">
+                <div class="img-lightbox">
+                    <div class="overlay"></div>
+                    <img src="https://bingolil.github.io/images/ng-zorro-ant.png" alt="" title="">
+                </div>
+                <div class="image-caption"></div>
+            </figure>
+<p>这代表在这个项目中可以使用<a href="https://ng.ant.design/docs/introduce/zh" target="_blank" rel="noopener">ng-zorro官网</a>的组件</p>
+<h3 id="ng-new"><a href="#ng-new" class="headerlink" title="ng new"></a>ng new</h3><p>该命令是创建一个新的 <code>Angular</code> 项目，使用如下命令，可以创建一个新项目<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ng new myApp //创建一个项目名为myApp的angular项目</span><br><span class="line">ng new myApp --routing //这个命令同上，不同之处这个命令会在项目中</span><br><span class="line">      //自动生成代表项目路由的文件 app-routing.module.ts</span><br></pre></td></tr></table></figure></p>
+<h3 id="ng-generate"><a href="#ng-generate" class="headerlink" title="ng generate"></a>ng generate</h3><p>这个命令是 <code>Angular</code> 项目中最主要的命令之一，新建组件，服务，指令，模块都可以在项目的根目录下使用这个命令进行创建。</p>
+<table>
+<thead>
+<tr>
+<th>默认创建名为home</th>
+<th>完整写法</th>
+<th>最简写法</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>组件</td>
+<td>ng generate componetent home</td>
+<td>ng g c home</td>
+</tr>
+<tr>
+<td>服务</td>
+<td>ng generate service home</td>
+<td>ng g s home</td>
+</tr>
+<tr>
+<td>指令</td>
+<td>ng generate directive home</td>
+<td>ng g d home</td>
+</tr>
+<tr>
+<td>管道</td>
+<td>ng generate pipe home</td>
+<td>ng g p home</td>
+</tr>
+<tr>
+<td>类</td>
+<td>ng generate class home</td>
+<td>ng g cl home</td>
+</tr>
+<tr>
+<td>接口</td>
+<td>ng generate interface home</td>
+<td>ng g i home</td>
+</tr>
+<tr>
+<td>模块</td>
+<td>ng generate module home</td>
+<td>ng g m home</td>
+</tr>
+</tbody>
+</table>
+<p><strong>注意：</strong><br>1，<code>Angular</code> 以前的服务使用的依赖注入，在 <code>Angular6</code> 版本中，服务采用的相依注入<br>2，创建组件 <code>component</code> 和类 <code>class</code> 都是 <code>c</code> 开头，所以使用最简写法有一定区别，如下所示，创建组件使用的是 <code>ng g c</code>，创建类时使用的是 <code>ng g cl</code>。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ng g c 组件名 //创建组件时使用的是c</span><br><span class="line">ng g cl 类名 //创建类时使用的是cl</span><br></pre></td></tr></table></figure></p>
+<h3 id="ng-build"><a href="#ng-build" class="headerlink" title="ng build"></a>ng build</h3><p><code>Angular</code> 项目采用的语言是 <code>typescript</code> 语法，由微软开发，该语法不直接在浏览器中运行，需要将 <code>ts(typescript)</code> 转换为 <code>js</code> 语法才可以运行，<code>ng build</code> 命令就是对 <code>Angular</code> 项目进行打包，生成静态的文件。</p>
+<h3 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h3><p><code>Angular</code> 还有其它的一些命令</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ng serve</td>
+<td>运行项目，存在–open参数时自动打开浏览器</td>
+</tr>
+<tr>
+<td>ng eject</td>
+<td>提取项目的webpack.config.json文件，一旦提取就不能还原</td>
+</tr>
+<tr>
+<td>ng libary 库名</td>
+<td>用户创建库</td>
+</tr>
+<tr>
+<td>ng help</td>
+<td>查找帮助</td>
+</tr>
+<tr>
+<td>ng version</td>
+<td>查看版本</td>
+</tr>
+<tr>
+<td>ng update</td>
+<td>项目的依赖有重大改变时，自动更新代码</td>
+</tr>
+<tr>
+<td>ng project 项目名</td>
+<td>已移除，在本项目下新建一个项目</td>
+</tr>
+</tbody>
+</table>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-01-21T01:19:09.491Z" itemprop="dateUpdated">2019-01-21 09:19:09</time>
+</span><br>
+
+
+        
+        留言：标签和 hexo 中所有变量及辅助函数等均可调用，示例：<a href="/2018/11/02/angular/learn-1/" target="_blank" rel="external">https://bingolil.github.io/2018/11/02/angular/learn-1/</a>
+        
+    </div>
+    
+    <footer>
+        <a href="https://bingolil.github.io">
+            <img src="/img/avatar.jpg" alt="bingolil">
+            bingolil
+        </a>
+    </footer>
+</blockquote>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular/">Angular</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Angular安装/">Angular安装</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://bingolil.github.io/2018/11/02/angular/learn-1/&title=《Angular学习-1-新手入门》 — bingolil个人主页&pic=https://bingolil.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://bingolil.github.io/2018/11/02/angular/learn-1/&title=《Angular学习-1-新手入门》 — bingolil个人主页&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://bingolil.github.io/2018/11/02/angular/learn-1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Angular学习-1-新手入门》 — bingolil个人主页&url=https://bingolil.github.io/2018/11/02/angular/learn-1/&via=https://bingolil.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://bingolil.github.io/2018/11/02/angular/learn-1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/11/09/angular/learn-2/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">Angular学习-2-组件通讯</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/10/20/web/person-web-2/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">个人网页搭建流程-2</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+<section class="comments" id="comments">
+    <!-- UY BEGIN -->
+    <div id="uyan_frame"></div>
+    <script src="http://v2.uyan.cc/code/uyan.js?uid=true"></script>
+    <!-- UY END -->
+</section>
+
+
+
+
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+<div id="gitalk-container"></div>
+<script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+<script type="text/javascript">
+    var gitalk = new Gitalk({
+        clientID: '06bf05df047dfdb72d5e',
+        clientSecret: 'f4dde2952395190a291b6b82524d0e4e8841ba69',
+        id: window.location.pathname,
+        repo: 'bingolil.github.io',
+        owner: 'bingolil',
+        admin: 'bingolil'
+    })
+    gitalk.render('gitalk-container')
+</script>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>bingolil &copy; 2015 - 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://bingolil.github.io/2018/11/02/angular/learn-1/&title=《Angular学习-1-新手入门》 — bingolil个人主页&pic=https://bingolil.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://bingolil.github.io/2018/11/02/angular/learn-1/&title=《Angular学习-1-新手入门》 — bingolil个人主页&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://bingolil.github.io/2018/11/02/angular/learn-1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Angular学习-1-新手入门》 — bingolil个人主页&url=https://bingolil.github.io/2018/11/02/angular/learn-1/&via=https://bingolil.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://bingolil.github.io/2018/11/02/angular/learn-1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://bingolil.github.io/2018/11/02/angular/learn-1/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: false };
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.7.2"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.7.2" async></script>
+
+
+
+
+
+
+ <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+
+</body>
+</html>
