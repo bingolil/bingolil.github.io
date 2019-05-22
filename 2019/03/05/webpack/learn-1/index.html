@@ -33,7 +33,7 @@
 <meta property="og:image" content="https://bingolil.github.io/images/learn-webpack-2.png">
 <meta property="og:image" content="https://bingolil.github.io/images/learn-webpack-3.png">
 <meta property="og:image" content="https://bingolil.github.io/images/learn-webpack-4.png">
-<meta property="og:updated_time" content="2019-04-27T05:12:51.970Z">
+<meta property="og:updated_time" content="2019-05-21T09:05:25.273Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="webpack学习-1-新手入门">
 <meta name="twitter:description" content="webpack介绍描述webpack 是模块打包工具，在开发中，各种文件（js，css，图片，json 等）可以看成是一种独特的模块资源，通过 webpack，可以将各种资源打包压缩到指定的文件中，还可以将在浏览器上不能直接运行的资源（scss，less，typescript 等）转换成合适的格式供浏览器使用 webpack应用场景 开发存在模块化（将复杂的程序细化为更小的文件） 类似于 Java">
@@ -201,7 +201,9 @@
 <h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><p>在 <code>cmd</code> 环境下，使用 <code>node.js</code> 的包管理器 <code>npm</code> 运行以下两个命令，全局安装 <code>webpack</code></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g webpack //全局安装webpack 此处为webpack4</span><br></pre></td></tr></table></figure>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install -g webpack-cli //webpack4 并没有和 webpack3 一样包含 webapck-cli，</span><br><span class="line">                          //所以需要全局安装 webpack-cli，在webpack3中不用</span><br></pre></td></tr></table></figure>
-<h3 id="基本的webpack使用"><a href="#基本的webpack使用" class="headerlink" title="基本的webpack使用"></a>基本的webpack使用</h3><p>1，在 <code>cmd</code> 环境中，进入某个文件目录（项目位置），使用命令 <code>md learn-webapck</code> 新建 <code>learn-webapck</code> 文件夹，<code>cd learn-webpack</code> 进入该文件夹下<br>2，使用命令 <code>npm init -y</code> 创建默认的 <code>package.json</code> 文件，使用命令 <code>npm install --save-dev webpack</code> 下载 <code>webpack</code> 到本地（非全局），使用命令 <code>npm install --save-dev webapck-cli</code> 下载 <code>webpack-cli</code> 到本地（项目中，非全局）<br>3，在 <code>learn-webpack</code> 文件下新建 <code>app文件夹</code> 和 <code>public文件夹</code>，在 <code>public文件夹</code> 下创建 <code>index.html</code> 文件，在 <code>app文件夹</code> 下创建 <code>main.js</code> 文件。此时，项目的目录结构如下所示</p>
+<h3 id="基本的webpack使用"><a href="#基本的webpack使用" class="headerlink" title="基本的webpack使用"></a>基本的webpack使用</h3><p>1，在 <code>cmd</code> 环境中，进入某个文件目录（项目位置），使用命令 <code>md learn-webapck</code> 新建 <code>learn-webapck</code> 文件夹，<code>cd learn-webpack</code> 进入该文件夹下</p>
+<p>2，使用命令 <code>npm init -y</code> 创建默认的 <code>package.json</code> 文件，使用命令 <code>npm install --save-dev webpack</code> 下载 <code>webpack</code> 到本地（非全局），使用命令 <code>npm install --save-dev webpack-cli</code> 下载 <code>webpack-cli</code> 到本地（项目中，非全局）</p>
+<p>3，在 <code>learn-webpack</code> 文件下新建 <code>app文件夹</code> 和 <code>public文件夹</code>，在 <code>public文件夹</code> 下创建 <code>index.html</code> 文件，在 <code>app文件夹</code> 下创建 <code>main.js</code> 文件。此时，项目的目录结构如下所示</p>
 <figure class="image-bubble">
                 <div class="img-lightbox">
                     <div class="overlay"></div>
@@ -328,7 +330,7 @@
     <div class="content">
         
 <span class="post-time">
-    最后更新时间：<time datetime="2019-04-27T05:12:51.970Z" itemprop="dateUpdated">2019-04-27 13:12:51</time>
+    最后更新时间：<time datetime="2019-05-21T09:05:25.273Z" itemprop="dateUpdated">2019-05-21 17:05:25</time>
 </span><br>
 
 
