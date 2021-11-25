@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Angular 是一个应用设计框架与开发平台，用于创建高效、复杂、精致的单页面应用。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular学习-1-新手入门">
+<meta property="og:url" content="http://example.com/2018/11/02/angular/learn-1/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Angular 是一个应用设计框架与开发平台，用于创建高效、复杂、精致的单页面应用。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-verison.png">
+<meta property="og:image" content="https://bingolil.github.io/images/csh-angular.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-file.png">
+<meta property="og:image" content="https://bingolil.github.io/images/polyfill.png">
+<meta property="og:image" content="https://bingolil.github.io/images/ng-help.png">
+<meta property="og:image" content="https://bingolil.github.io/images/ng-zorro-ant.png">
+<meta property="article:published_time" content="2018-11-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-24T01:30:16.827Z">
+<meta property="article:author" content="bingolil">
+<meta property="article:tag" content="Angular安装">
+<meta property="article:tag" content="Angular">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bingolil.github.io/images/angular-verison.png">
+
+<link rel="canonical" href="http://example.com/2018/11/02/angular/learn-1/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Angular学习-1-新手入门 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/11/02/angular/learn-1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="bingolil">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular学习-1-新手入门
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-11-02 00:00:00" itemprop="dateCreated datePublished" datetime="2018-11-02T00:00:00+08:00">2018-11-02</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-24 09:30:16" itemprop="dateModified" datetime="2021-11-24T09:30:16+08:00">2021-11-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">Angular 是一个应用设计框架与开发平台，用于创建高效、复杂、精致的单页面应用。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="安装Angular6"><a href="#安装Angular6" class="headerlink" title="安装Angular6"></a>安装Angular6</h2><p>前提准备：电脑上已经存在 <code>node.js</code>（版本 为8.X或者10.X），因为使用 <code>Angular</code> 一般都需要它的 <code>angular/cli</code> 脚手架，需要使用 <code>ndoe.js</code> 的包管理器 <code>npm</code>。<br>安装的 <code>Angular</code> 版本是 <code>Angular6</code>，进入电脑的 <code>cmd</code> 命令行环境下，运行如下命令</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g <span class="meta">@angular</span>/cli</span><br></pre></td></tr></table></figure>
+<p>安装完毕后，在该环境下运行如下命令</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng -version</span><br></pre></td></tr></table></figure>
+<p>出现如下图所示，代表安装成功</p>
+<p><img src="https://bingolil.github.io/images/angular-verison.png"></p>
+<h2 id="新建项目"><a href="#新建项目" class="headerlink" title="新建项目"></a>新建项目</h2><p>在 <code>cmd</code> 命令行环境下，运行以下命令</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng <span class="keyword">new</span> myApp</span><br></pre></td></tr></table></figure>
+<p>然后等待 <code>angular/cli</code> 脚手架自动新建一个 <code>myApp</code> 的项目，然后 <code>cd myApp</code> 目录下，运行以下命令</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ng server --open <span class="comment">//open是参数，即运行成功后自动打开</span></span><br><span class="line">                 <span class="comment">//浏览器，并进入本地4200端口界面</span></span><br></pre></td></tr></table></figure>
+<p>在浏览器的本地4200端口出现如下图所示。</p>
+<p><img src="https://bingolil.github.io/images/csh-angular.png"></p>
+<h2 id="Angular6项目文件"><a href="#Angular6项目文件" class="headerlink" title="Angular6项目文件"></a>Angular6项目文件</h2><p><code>Angular</code> 新建项目的目录结构如下所示</p>
+<p><img src="https://bingolil.github.io/images/angular-file.png"></p>
+<h3 id="angular-json"><a href="#angular-json" class="headerlink" title="angular.json"></a>angular.json</h3><p>在 <code>Angular6</code> 以前，该文件名为.angular.json，<code>Angular6</code> 改成了angular.json，少了一个小数点，这个文件是脚手架的核心配置文件。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;projects&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;myApp&quot;</span>: &#123;</span><br><span class="line">      <span class="string">&quot;root&quot;</span>: <span class="string">&quot;&quot;</span>, <span class="comment">//项目的根</span></span><br><span class="line">      <span class="string">&quot;sourceRoot&quot;</span>: <span class="string">&quot;src&quot;</span>, <span class="comment">//项目的源码地址，即项目源码都在src文件夹下</span></span><br><span class="line">      <span class="string">&quot;projectType&quot;</span>: <span class="string">&quot;application&quot;</span>,</span><br><span class="line">      <span class="string">&quot;prefix&quot;</span>: <span class="string">&quot;app&quot;</span>, <span class="comment">//前缀，新建组件时，其选择器为 &#x27;app-组件名&#x27;</span></span><br><span class="line">      <span class="string">&quot;schematics&quot;</span>: &#123;&#125;,</span><br><span class="line">      <span class="string">&quot;architect&quot;</span>: &#123;</span><br><span class="line">        <span class="string">&quot;build&quot;</span>: &#123; <span class="comment">//项目打包部分</span></span><br><span class="line">          <span class="string">&quot;builder&quot;</span>: <span class="string">&quot;@angular-devkit/build-angular:browser&quot;</span>,</span><br><span class="line">          <span class="string">&quot;options&quot;</span>: &#123;</span><br><span class="line">            <span class="string">&quot;outputPath&quot;</span>: <span class="string">&quot;dist/myApp&quot;</span>, <span class="comment">//打包后的项目地址</span></span><br><span class="line">            <span class="string">&quot;index&quot;</span>: <span class="string">&quot;src/index.html&quot;</span>,</span><br><span class="line">            <span class="string">&quot;main&quot;</span>: <span class="string">&quot;src/main.ts&quot;</span>,</span><br><span class="line">            <span class="string">&quot;polyfills&quot;</span>: <span class="string">&quot;src/polyfills.ts&quot;</span>, <span class="comment">//项目的腻子文件</span></span><br><span class="line">            <span class="string">&quot;tsConfig&quot;</span>: <span class="string">&quot;src/tsconfig.app.json&quot;</span>,</span><br><span class="line">            <span class="string">&quot;assets&quot;</span>: [ <span class="comment">//项目在资源地址</span></span><br><span class="line">              <span class="string">&quot;src/favicon.ico&quot;</span>,</span><br><span class="line">              <span class="string">&quot;src/assets&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;styles&quot;</span>: [ <span class="comment">//项目引入的css文件</span></span><br><span class="line">              <span class="string">&quot;src/styles.css&quot;</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="string">&quot;scripts&quot;</span>: [] <span class="comment">//项目引入的js文件</span></span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure>
+<h3 id="package-json"><a href="#package-json" class="headerlink" title="package.json"></a>package.json</h3><p>在项目下面存在 <code>pack.json</code> 文件，该 <code>json</code> 文件存放了项目的信息</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;name&quot;</span>: <span class="string">&quot;my-app&quot;</span>, <span class="comment">//项目名称</span></span><br><span class="line">  <span class="string">&quot;version&quot;</span>: <span class="string">&quot;0.0.0&quot;</span>, <span class="comment">//项目版本</span></span><br><span class="line">  <span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">    <span class="string">&quot;ng&quot;</span>: <span class="string">&quot;ng&quot;</span>,</span><br><span class="line">    <span class="string">&quot;start&quot;</span>: <span class="string">&quot;ng serve&quot;</span>, <span class="comment">//项目运行命令</span></span><br><span class="line">    <span class="string">&quot;build&quot;</span>: <span class="string">&quot;ng build&quot;</span>, <span class="comment">//项目打包命令</span></span><br><span class="line">    <span class="string">&quot;test&quot;</span>: <span class="string">&quot;ng test&quot;</span>, <span class="comment">//项目测试命令</span></span><br><span class="line">    <span class="string">&quot;lint&quot;</span>: <span class="string">&quot;ng lint&quot;</span>,</span><br><span class="line">    <span class="string">&quot;e2e&quot;</span>: <span class="string">&quot;ng e2e&quot;</span> <span class="comment">//项目端到端测试命令</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="src-main-ts"><a href="#src-main-ts" class="headerlink" title="src/main.ts"></a>src/main.ts</h3><p>这个文件记录了项目从哪个模块开始运行</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; enableProdMode &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; platformBrowserDynamic &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/platform-browser-dynamic&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; AppModule &#125; <span class="keyword">from</span> <span class="string">&#x27;./app/app.module&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; environment &#125; <span class="keyword">from</span> <span class="string">&#x27;./environments/environment&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (environment.production) &#123;</span><br><span class="line">  enableProdMode();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">platformBrowserDynamic().bootstrapModule(AppModule)</span><br><span class="line">  .catch(<span class="function"><span class="params">err</span> =&gt;</span> <span class="built_in">console</span>.log(err));</span><br></pre></td></tr></table></figure>
+
+<h3 id="src-polyfill-ts"><a href="#src-polyfill-ts" class="headerlink" title="src/polyfill.ts"></a>src/polyfill.ts</h3><p>这个文件叫做腻子脚本，<code>Angular</code> 是默认对 <code>ie浏览器</code> 是不支持的，即新建项目后，在 <code>ie浏览器</code> 的本地4200端口页面是一片空白，将以下的注释取消，在ie浏览器中可以看到页面。<br><strong>将项目的默认注释取消后，其对i e浏览器 的支持也不是特别好，<a target="_blank" rel="noopener" href="https://angular.io/">Angualr官网</a>在ie11中有的页面页打不开</strong><br><img src="https://bingolil.github.io/images/polyfill.png"></p>
+<h3 id="src-index-html"><a href="#src-index-html" class="headerlink" title="src/index.html"></a>src/index.html</h3><p>该文件记录了页面是从开始模块 (<code>AppModule</code>) 中声明的哪一个组件开始</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;utf-8&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>MyApp<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">base</span> <span class="attr">href</span>=<span class="string">&quot;/&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1&quot;</span>&gt;</span></span><br><span class="line">         <span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">type</span>=<span class="string">&quot;image/x-icon&quot;</span> <span class="attr">href</span>=<span class="string">&quot;favicon.ico&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">app-root</span>&gt;</span><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span> //从AppModule的app-root组件开始展示页面</span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="src-app-app-module-ts"><a href="#src-app-app-module-ts" class="headerlink" title="src/app/app.module.ts"></a>src/app/app.module.ts</h3><p>这个文件是项目默认的根模块</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; BrowserModule &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/platform-browser&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; NgModule &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AppComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;./app.component&#x27;</span>;</span><br><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">declarations</span>: [</span><br><span class="line">    AppComponent</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">imports</span>: [</span><br><span class="line">    BrowserModule</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">providers</span>: [],</span><br><span class="line">  <span class="attr">bootstrap</span>: [AppComponent] <span class="comment">//bootstrap代表从哪个组件开始编译</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AppModule</span> </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+<p>在 <code>src/main.ts</code> 中引入的启动模块就这个模块，所以这个模块也叫做项目的根模块，在这个模块中，默认定义了一个根组件，即 <code>AppComponent</code>，这个组件定义的选择器是  <code>app-root</code>，这个选择器在 <code>src/index.html</code> 中被使用，即这个组件也叫做根组件。<br><strong>以上文件为 Angular 项目的主要的重要文件</strong></p>
+<h2 id="Angular6命令大全"><a href="#Angular6命令大全" class="headerlink" title="Angular6命令大全"></a>Angular6命令大全</h2><p><code>Angular</code> 为开发者者提供了诸多帮助，在 <code>cmd</code> 环境下，使用以下命令</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng --help</span><br></pre></td></tr></table></figure>
+<p>其命令如下图所示<br><img src="https://bingolil.github.io/images/ng-help.png"></p>
+<h3 id="ng-add"><a href="#ng-add" class="headerlink" title="ng add"></a>ng add</h3><p><code>ng add</code> 是 <code>Angular6</code> 中新出现的命令，该命令使得向项目中添加新功能更加的方便。<br>例如，在项目根目录下运行如下命令添加 <strong><code>ng-zorro</code></strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng add ng-zorro-antd</span><br></pre></td></tr></table></figure>
+<p>命令运行完成后，使用 <code>ng serve</code> 运行项目，浏览器打开本地4200端口，出现下图。</p>
+<p><img src="https://bingolil.github.io/images/ng-zorro-ant.png"><br>这代表在这个项目中可以使用<a target="_blank" rel="noopener" href="https://ng.ant.design/docs/introduce/zh">ng-zorro官网</a>的组件</p>
+<h3 id="ng-new"><a href="#ng-new" class="headerlink" title="ng new"></a>ng new</h3><p>该命令是创建一个新的 <code>Angular</code> 项目，使用如下命令，可以创建一个新项目</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ng new myApp //创建一个项目名为myApp的angular项目</span><br><span class="line">ng new myApp --routing //这个命令同上，不同之处这个命令会在项目中</span><br><span class="line">      //自动生成代表项目路由的文件 app-routing.module.ts</span><br></pre></td></tr></table></figure>
+<h3 id="ng-generate"><a href="#ng-generate" class="headerlink" title="ng generate"></a>ng generate</h3><p>这个命令是 <code>Angular</code> 项目中最主要的命令之一，新建组件，服务，指令，模块都可以在项目的根目录下使用这个命令进行创建。</p>
+<table>
+<thead>
+<tr>
+<th>默认创建名为home</th>
+<th>完整写法</th>
+<th>最简写法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>组件</td>
+<td>ng generate componetent home</td>
+<td>ng g c home</td>
+</tr>
+<tr>
+<td>服务</td>
+<td>ng generate service home</td>
+<td>ng g s home</td>
+</tr>
+<tr>
+<td>指令</td>
+<td>ng generate directive home</td>
+<td>ng g d home</td>
+</tr>
+<tr>
+<td>管道</td>
+<td>ng generate pipe home</td>
+<td>ng g p home</td>
+</tr>
+<tr>
+<td>类</td>
+<td>ng generate class home</td>
+<td>ng g cl home</td>
+</tr>
+<tr>
+<td>接口</td>
+<td>ng generate interface home</td>
+<td>ng g i home</td>
+</tr>
+<tr>
+<td>模块</td>
+<td>ng generate module home</td>
+<td>ng g m home</td>
+</tr>
+</tbody></table>
+<p><strong>注意：</strong><br>1，<code>Angular</code> 以前的服务使用的依赖注入，在 <code>Angular6</code> 版本中，服务采用的相依注入。<br>2，创建组件 <code>component</code> 和类 <code>class</code> 都是 <code>c</code> 开头，所以使用最简写法有一定区别，如下所示，创建组件使用的是 <code>ng g c</code>，创建类时使用的是 <code>ng g cl</code>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ng g c 组件名 //创建组件时使用的是c</span><br><span class="line">ng g cl 类名 //创建类时使用的是cl</span><br></pre></td></tr></table></figure>
+<h3 id="ng-build"><a href="#ng-build" class="headerlink" title="ng build"></a>ng build</h3><p><code>Angular</code> 项目采用的语言是 <code>typescript</code> 语法，由微软开发，该语法不直接在浏览器中运行，需要将 <code>ts(typescript)</code> 转换为 <code>js</code> 语法才可以运行，<code>ng build</code> 命令就是对 <code>Angular</code> 项目进行打包，生成静态的文件。</p>
+<h3 id="其它命令"><a href="#其它命令" class="headerlink" title="其它命令"></a>其它命令</h3><p><code>Angular</code> 还有其它的一些命令</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ng serve</td>
+<td>运行项目，存在–open参数时自动打开浏览器</td>
+</tr>
+<tr>
+<td>ng eject</td>
+<td>提取项目的webpack.config.json文件，一旦提取就不能还原</td>
+</tr>
+<tr>
+<td>ng libary 库名</td>
+<td>用户创建库</td>
+</tr>
+<tr>
+<td>ng help</td>
+<td>查找帮助</td>
+</tr>
+<tr>
+<td>ng version</td>
+<td>查看版本</td>
+</tr>
+<tr>
+<td>ng update</td>
+<td>项目的依赖有重大改变时，自动更新代码</td>
+</tr>
+<tr>
+<td>ng project 项目名</td>
+<td>已移除，在本项目下新建一个项目</td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Angular%E5%AE%89%E8%A3%85/" rel="tag"># Angular安装</a>
+              <a href="/tags/Angular/" rel="tag"># Angular</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2018/11/09/angular/learn-2/" rel="next" title="Angular学习-2-组件通讯">
+      Angular学习-2-组件通讯 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%89%E8%A3%85Angular6"><span class="nav-number">1.</span> <span class="nav-text">安装Angular6</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B0%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">2.</span> <span class="nav-text">新建项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Angular6%E9%A1%B9%E7%9B%AE%E6%96%87%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">Angular6项目文件</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#angular-json"><span class="nav-number">3.1.</span> <span class="nav-text">angular.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#package-json"><span class="nav-number">3.2.</span> <span class="nav-text">package.json</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#src-main-ts"><span class="nav-number">3.3.</span> <span class="nav-text">src&#x2F;main.ts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#src-polyfill-ts"><span class="nav-number">3.4.</span> <span class="nav-text">src&#x2F;polyfill.ts</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#src-index-html"><span class="nav-number">3.5.</span> <span class="nav-text">src&#x2F;index.html</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#src-app-app-module-ts"><span class="nav-number">3.6.</span> <span class="nav-text">src&#x2F;app&#x2F;app.module.ts</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Angular6%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8"><span class="nav-number">4.</span> <span class="nav-text">Angular6命令大全</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ng-add"><span class="nav-number">4.1.</span> <span class="nav-text">ng add</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ng-new"><span class="nav-number">4.2.</span> <span class="nav-text">ng new</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ng-generate"><span class="nav-number">4.3.</span> <span class="nav-text">ng generate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ng-build"><span class="nav-number">4.4.</span> <span class="nav-text">ng build</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B6%E5%AE%83%E5%91%BD%E4%BB%A4"><span class="nav-number">4.5.</span> <span class="nav-text">其它命令</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">bingolil</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bingolil</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

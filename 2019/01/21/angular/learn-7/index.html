@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Angular 提供了两种不同的方法来通过表单处理用户输入：响应式表单和模板驱动表单。 两者都从视图中捕获用户输入事件、验证用户输入、创建表单模型、修改数据模型，并提供跟踪这些更改的途径。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular学习-7-表单2">
+<meta property="og:url" content="http://example.com/2019/01/21/angular/learn-7/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Angular 提供了两种不同的方法来通过表单处理用户输入：响应式表单和模板驱动表单。 两者都从视图中捕获用户输入事件、验证用户输入、创建表单模型、修改数据模型，并提供跟踪这些更改的途径。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-ngForm.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-formarray2.png">
+<meta property="article:published_time" content="2019-01-20T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-24T01:12:15.141Z">
+<meta property="article:author" content="bingolil">
+<meta property="article:tag" content="Angular">
+<meta property="article:tag" content="Angular表单">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bingolil.github.io/images/angular-ngForm.png">
+
+<link rel="canonical" href="http://example.com/2019/01/21/angular/learn-7/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Angular学习-7-表单2 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/21/angular/learn-7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="bingolil">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular学习-7-表单2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-21 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-21T00:00:00+08:00">2019-01-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-24 09:12:15" itemprop="dateModified" datetime="2021-11-24T09:12:15+08:00">2021-11-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">Angular 提供了两种不同的方法来通过表单处理用户输入：响应式表单和模板驱动表单。 两者都从视图中捕获用户输入事件、验证用户输入、创建表单模型、修改数据模型，并提供跟踪这些更改的途径。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="模板驱动表单"><a href="#模板驱动表单" class="headerlink" title="模板驱动表单"></a>模板驱动表单</h2><p>模板驱动表单专注于简单的场景（也可以应用于大型表单）</p>
+<h3 id="ngModel"><a href="#ngModel" class="headerlink" title="[(ngModel)]"></a>[(ngModel)]</h3><p>在模板驱动表单中，通过 <code>[(ngModel)]</code> 将数据模型和视图相关联起来，其为双向绑定（值可以从模型流到视图，也可以从视图流到模型）。其代码如下所示</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//定义绑定的变量</span></span><br><span class="line"><span class="keyword">public</span> charter=&#123;</span><br><span class="line">  <span class="attr">name</span>:<span class="string">&#x27;&#x27;</span>,  <span class="comment">//姓名</span></span><br><span class="line">  <span class="attr">age</span>:<span class="number">18</span>,   <span class="comment">//年龄默认 18</span></span><br><span class="line">  <span class="attr">power</span>:<span class="string">&#x27;&#x27;</span>, <span class="comment">//超能力</span></span><br><span class="line">  <span class="attr">desc</span>:<span class="string">&#x27;&#x27;</span>   <span class="comment">//描述</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="title">conCha</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="built_in">this</span>.charter)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">....//代码块</span><br><span class="line"><span class="tag">&lt;<span class="name">form</span>&gt;</span></span><br><span class="line">  姓名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.name&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">  年龄：&gt;<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.age&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">  超能力：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;power&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.power&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">  描述：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;desc&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.desc&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">hr</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;conCha()&quot;</span>&gt;</span>控制台输出信息<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>在标签上使用 <code>[(ngModel)]</code> 时，需要在该标签加上 <code>name</code> 属性（其值在页面中唯一），建议 <code>name</code> 属性的值和 <code>[(ngModel)]</code> 绑定的值相同。在响应式表单中可以不用加 <code>name</code> 属性</p>
+</blockquote>
+<p>运行代码（上述 <code>Html</code> 代码已移除样式）后，在页面中改变各个输入框的，然后点击 <code>控制台输出信息</code> 按钮，可以看到，在控制台中输出组件的 <code>charter</code> 值，其值的属性值为页面中对应输入框输入的值。 </p>
+<h3 id="ngForm-和-ngNoForm"><a href="#ngForm-和-ngNoForm" class="headerlink" title="ngForm 和 ngNoForm"></a>ngForm 和 ngNoForm</h3><p><code>ngForm</code> 是一个指令，若开发者导入了 <code>FormsModule</code> 模块，该指令会在该模块下所有的 <code>form</code> 标签上生效（默认添加，<code>ngForm</code> 指令不会被自动添加到响应式表单中）。<code>ngForm</code> 指令创建一个顶级的 <code>FormGroup</code>，并把这个 <code>FormGroup</code> 绑定到一个表单上，以跟踪表单的状态和聚和值。</p>
+<blockquote>
+<p>当开发者不希望 <code>Angular</code> 接管表单时，可以在 <code>form</code> 标签上添加 <code>ngNoForm</code> 指令；当标签为 <code>div</code> 时，希望 <code>div</code> 接管表单，可以在 <code>div</code> 上添加 <code>ngForm</code> 指令</p>
+</blockquote>
+<p>其用法如下所示</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">conNgForm</span>(<span class="params">f</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(f);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> #<span class="attr">cha</span>=<span class="string">&quot;ngForm&quot;</span>&gt;</span><span class="comment">&lt;!-- cha 为ngForm的引用--&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 代码块，绑定姓名年龄等 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;conNgForm(cha)&quot;</span>&gt;</span>输出ngForm<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>运行该代码时，点击页面中的 <code>输出ngForm</code> 按钮，可以在控制台看到 <code>ngForm</code> 指令的值，其结果如下图所示</p>
+<p><img src="https://bingolil.github.io/images/angular-ngForm.png" alt="ngForm的值"></p>
+<h3 id="FormArry-的替代方案"><a href="#FormArry-的替代方案" class="headerlink" title="FormArry 的替代方案"></a>FormArry 的替代方案</h3><p>当子控件的数量不确定时，在响应式表单中，其解决方案是由 <code>FormArry</code> 管理来子控件。在模板驱动表单中，其解决方案代码如下所示</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> charter=&#123;</span><br><span class="line">  <span class="attr">name</span>:<span class="string">&#x27;&#x27;</span>,  <span class="comment">//姓名</span></span><br><span class="line">  <span class="attr">age</span>:<span class="number">18</span>,   <span class="comment">//年龄默认 18</span></span><br><span class="line">  <span class="attr">power</span>:<span class="string">&#x27;&#x27;</span>, <span class="comment">//超能力</span></span><br><span class="line">  <span class="attr">desc</span>:<span class="string">&#x27;&#x27;</span>,  <span class="comment">//描述</span></span><br><span class="line">  <span class="attr">favs</span>:[]   <span class="comment">//爱好（在已有代码中新增的属性）</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//添加新 input text 框以输入新爱好</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="title">addF</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.charter.favs.push(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//防止失去焦点</span></span><br><span class="line"><span class="function"><span class="title">indexTracker</span>(<span class="params">index: <span class="built_in">number</span>, value: <span class="built_in">any</span></span>)</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> index;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//移除当前的爱好</span></span><br><span class="line"><span class="keyword">private</span> <span class="function"><span class="title">removeF</span>(<span class="params">i</span>)</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.charter.favs.splice(i,<span class="number">1</span>);</span><br><span class="line">&#125;</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> #<span class="attr">cha</span>=<span class="string">&quot;ngForm&quot;</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!--代码块，绑定姓名年龄等--&gt;</span></span><br><span class="line">  爱好：</span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let item of charter.favs;let i=index;trackBy:indexTracker;&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;fav&#123;&#123;i&#125;&#125;&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.favs[i]&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;removeF(i)&quot;</span>&gt;</span>移除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--type一定要有--&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;addF()&quot;</span>&gt;</span>添加爱好<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>表单的值：&#123;&#123;charter | json&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--代码块--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在浏览器中运行代码后，其页面效果如下所示</p>
+<p><img src="https://bingolil.github.io/images/angular-formarray2.png"></p>
+<blockquote>
+<p><strong>注意1：</strong>在模板驱动表单中，使用上述方法绑定数组时，虽然循环表达式 <code>*ngFor=&quot;let item of charter.favs;let i=index;trackBy:indexTracker;&quot;</code> 中存在item，但其在双向绑定中并没有被使用，在 <code>[(ngModel)]</code> 的双向绑定中使用的是 <code>charter.favs[i]</code> </p>
+</blockquote>
+<blockquote>
+<p><strong>注意2：</strong>在 <code>ngFor</code> 的循环中使用 <code>trackBy</code>，其值 <code>indexTracker</code> 在 <code>Ts</code> 代码中被定义。它的作用是防止表单中绑定数组的 <code>input</code> 框在输入时失去焦点，即在页面中没有 <code>indexTracker</code> 时，表单中的爱好 <code>input</code> 框的值改变时，当前的表单会失去焦点</p>
+</blockquote>
+<blockquote>
+<p><strong>注意3：</strong>在 <code>Html</code> 代码中，按钮 <code>button</code> 需要加上 <code>type</code> 类型，如 <code>button</code>，<code>submit</code>等，若不加上，该按钮会被表单默认为 <code>submit</code> 类型。即当 <code>input</code> 框获取焦点后（不管有没有数据），按键盘上的回车键会触发表单中 <code>submit</code> 提交事件</p>
+</blockquote>
+<h2 id="模板表单验证"><a href="#模板表单验证" class="headerlink" title="模板表单验证"></a>模板表单验证</h2><h3 id="Angular-提供的验证器"><a href="#Angular-提供的验证器" class="headerlink" title="Angular 提供的验证器"></a>Angular 提供的验证器</h3><p>在使用模板驱动表单时，<code>Angular</code> 提供了许多的验证器，其验证器直接在组件 <code>UI</code> 中使用，其代码如下所示</p>
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> #<span class="attr">cha</span>=<span class="string">&quot;ngForm&quot;</span>&gt;</span></span><br><span class="line">姓名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.name&quot;</span> <span class="attr">required</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--代码块，绑定其它的属性--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>表单的状态：&#123;&#123;cha.valid&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当姓名 <code>input</code> 框没有值时时，页面中表单的状态为 <code>false</code>，一旦有值时，表单的状态为 <code>true</code>。</p>
+<blockquote>
+<p>当 <code>input</code> 为 <code>number</code> 类型时，<code>min=&quot;10&quot;</code> 的验证绑定不到表单中，在该框中直接输入一个比 <code>10</code> 小的数，表单的状态不改变</p>
+</blockquote>
+<p>在模板驱动表单中，<code>Angular</code> 能用的验证如下所示</p>
+<blockquote>
+<p><code>required</code>：表示该控件必须要有值，一般用于 <code>input</code> 的 <code>number</code>类型、<code>text</code>类型、<code>select</code>类型等，用法如上所示</p>
+</blockquote>
+<blockquote>
+<p><code>minLength</code>：表示当前输入的字符最小长度，一般用于 <code>input</code> 的 <code>text</code> 类型</p>
+</blockquote>
+<p>用法：<code>&lt;input type=&quot;text&quot; name=&quot;name&quot; [(ngModel)]=&quot;charter.name&quot; minlength=&quot;2&quot;</code>，表示 <code>name</code> 必须不小于两个字符</p>
+<blockquote>
+<p><code>maxLength</code>：表示当前输入的字符最大长度，一般用于 <code>input</code> 的 <code>text</code> 类型</p>
+</blockquote>
+<p>用法：<code>&lt;input type=&quot;text&quot; name=&quot;name&quot; [(ngModel)]=&quot;charter.name&quot; minlength=&quot;10&quot;</code>，表示 <code>name</code> 必须不大于10个字符</p>
+<blockquote>
+<p><code>pattern</code>：验证当前输入是否符合某种正则表达式，一般用于 <code>input</code> 的 <code>text</code> 类型</p>
+</blockquote>
+<p>用法：<code>&lt;input type=&quot;text&quot; name=&quot;power&quot; [(ngModel)]=&quot;charter.power&quot; pattern=&quot;[A-z]*&quot;&gt;</code>，表示当前的 <code>input</code> 输入框的输入必须为英文字母（不管大小写）</p>
+<blockquote>
+<p><code>email</code>：表示当前输入的格式必须符合邮箱的格式，一般用于 <code>input</code> 的 <code>email</code> 类型</p>
+</blockquote>
+<p>用法：<code>&lt;input type=&quot;email&quot; email name=&quot;email&quot; [(ngModel)]=&quot;charter.email&quot;&gt;</code>，表示当前 <code>input</code> 输入框的输入必须为邮箱格式</p>
+<blockquote>
+<p><strong>注意：</strong> 在模板驱动表单中，当 <code>input</code> 为 <code>number</code> 类型时，没有验证其大小的验证器（在响应式表单中为 <code>Validators.min()</code> 和 <code>Validators.max()</code>）</p>
+</blockquote>
+<h3 id="自定义验证器"><a href="#自定义验证器" class="headerlink" title="自定义验证器"></a>自定义验证器</h3><p>在模板驱动表单中，自定义验证器的实质是一个自定义指令，自定义一个其代码如下所示</p>
+<p>指令Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Directive, forwardRef, Input &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; NG_VALIDATORS, Validator, AbstractControl &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123; <span class="comment">//装饰器定义指令</span></span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appZdy]&#x27;</span>,</span><br><span class="line">  <span class="attr">providers</span>:[</span><br><span class="line">    &#123;<span class="attr">provide</span>:NG_VALIDATORS,<span class="attr">useExisting</span>:forwardRef(<span class="function">()=&gt;</span>ZdyValidator),</span><br><span class="line">    <span class="attr">multi</span>:<span class="literal">true</span></span><br><span class="line">    &#125; </span><br><span class="line">  ] </span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">ZdyValidator</span> <span class="title">implements</span> <span class="title">Validator</span></span>&#123;</span><br><span class="line">  <span class="meta">@Input</span>() appZdy:<span class="built_in">string</span>; <span class="comment">//输入</span></span><br><span class="line"></span><br><span class="line">  validate(c:AbstractControl):&#123;[key:<span class="built_in">string</span>]:<span class="built_in">any</span>;&#125;&#123;</span><br><span class="line">    <span class="keyword">let</span> value:<span class="built_in">string</span>=c.value || <span class="string">&#x27;&#x27;</span>; <span class="comment">//c代表当前控件</span></span><br><span class="line">    <span class="keyword">if</span>(value.startsWith(<span class="built_in">this</span>.appZdy))&#123;</span><br><span class="line">      <span class="keyword">return</span> &#123;<span class="attr">mobile</span>:&#123;</span><br><span class="line">        <span class="attr">msg</span>:<span class="string">`手机号不能为<span class="subst">$&#123;<span class="built_in">this</span>.appZdy&#125;</span>开头`</span>,</span><br><span class="line">        <span class="attr">actualValue</span>:value&#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>在模板驱动表单中使用自定义验证器</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--代码块--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>手机：<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">required</span> <span class="attr">appZdy</span>=<span class="string">&quot;133&quot;</span> <span class="attr">name</span>=<span class="string">&quot;phone&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.phone&quot;</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--代码块--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在浏览器中，运行该代码时，若在手机 <code>input</code> 框输入133为开头的字符串，该控件的状态会为 <code>INVALID</code></p>
+<h3 id="验证时错误提示"><a href="#验证时错误提示" class="headerlink" title="验证时错误提示"></a>验证时错误提示</h3><p>在表单中，若用户输入不符合要求，需要提醒用户其出错在什么地方。在模板驱动表单中，提供了 <code>ngModel</code> 指令来实现该效果，其代码如下所示</p>
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--代码块--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>手机：<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">required</span> <span class="attr">appZdy</span>=<span class="string">&quot;133&quot;</span> <span class="attr">name</span>=<span class="string">&quot;phone&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.phone&quot;</span> #<span class="attr">phone</span>=<span class="string">&quot;ngModel&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;phone.invalid &amp;&amp; (phone.dirty || phone.touched)&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>手机号必填<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> *<span class="attr">ngIf</span>=<span class="string">&quot;phone.errors.mobile&quot;</span>&gt;</span>&#123;&#123;phone.errors.mobile.msg&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--代码块--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在上面的 <code>Html</code> 代码中，<code>input</code> 标签中的 <code>#phone=&quot;ngModel&quot;</code> 代表当前控件赋值给 <code>phone</code> 变量。即在页面中，<code>phone</code> 变量包含这个控件的一切，可以访问该控件的 <code>value</code> 或 <code>status</code>。</p>
+<blockquote>
+<p><strong>dirty 和 touched：</strong>在初始化页面后，开发者一般不希望将错误提示在用户还没有输入时就展示出来，这会降低用户体验，而 <code>dirty</code> 和 <code>touched</code> 可以解决该该问题。改变控件的值时，控件的 <code>dirty</code>（脏）状态发生改变，当控件失去焦点时，会改变控件的 <code>touched</code>（碰过）状态。</p>
+</blockquote>
+<h3 id="异步验证"><a href="#异步验证" class="headerlink" title="异步验证"></a>异步验证</h3><p>在模板驱动表单中，异步验证的验证器是一个自定义指令，验证用户名唯一的功能代码如下所示</p>
+<p>asyc-name.directive.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Directive, forwardRef &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AsyncValidator, NG_ASYNC_VALIDATORS, AbstractControl, ValidationErrors &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span></span><br><span class="line"><span class="keyword">import</span> &#123; map, catchError &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Observable &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AsycService &#125; <span class="keyword">from</span> <span class="string">&#x27;../asyc.service&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appAsycName]&#x27;</span>,</span><br><span class="line">  <span class="attr">providers</span>:[</span><br><span class="line">    &#123;<span class="attr">provide</span>:NG_ASYNC_VALIDATORS,<span class="attr">useExisting</span>:forwardRef(<span class="function">()=&gt;</span>AsycNameValidator),</span><br><span class="line">    <span class="attr">multi</span>:<span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AsycNameValidator</span> <span class="title">implements</span> <span class="title">AsyncValidator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> asycService:AsycService</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">  validate(ctrl:AbstractControl):<span class="built_in">Promise</span>&lt;ValidationErrors | <span class="literal">null</span>&gt; | Observable&lt;ValidationErrors | <span class="literal">null</span>&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.asycService._can_use(ctrl.value).pipe(</span><br><span class="line">      map(<span class="function"><span class="params">xx</span>=&gt;</span>(xx?&#123;<span class="attr">can_use</span>:<span class="literal">false</span>&#125;:<span class="literal">null</span>)),</span><br><span class="line">      catchError(<span class="function">()=&gt;</span><span class="literal">null</span>)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在模板驱动表单中使用该异步验证器</p>
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--代码块--&gt;</span></span><br><span class="line">姓名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.name&quot;</span> [<span class="attr">ngModelOptions</span>]=<span class="string">&quot;&#123; updateOn: &#x27;blur&#x27; &#125;&quot;</span> <span class="attr">appAsycName</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--代码块--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="性能影响"><a href="#性能影响" class="headerlink" title="性能影响"></a>性能影响</h2><p>在默认情况下，表单的值一旦发生改变，<code>Angular</code> 会执行所有的验证器。对于同步验证器，其对项目没有明显的影响，不过，异步验证一般都会发送 <code>http</code> 请求来对控件进行验证，每次按键时，触发验证，若按键的速度过快，程序会在短时间来发送大量的 <code>http</code> 请求，这会对项目的性能造成明显的影响，降低用户体验，应该避免这种情况出现。</p>
+<p>在异步验证用户名时，在 <code>input</code> 框中，可以将 <code>updateOn</code> 的值从 <code>change</code> 改为 <code>blur</code> 来推迟异步验证的时机，即当控件失去焦点时才进行异步验证。其代码如下所示</p>
+<p><strong>模板驱动表单</strong><br>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;charter.name&quot;</span> <span class="attr">ngModelOptions</span>=<span class="string">&quot;&#123;updateOn:&#x27;blur&#x27;&#125;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>响应式表单</strong></p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> FormControl(<span class="string">&#x27;&#x27;</span>,&#123;<span class="attr">updateOn</span>:<span class="string">&#x27;blur&#x27;</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Angular/" rel="tag"># Angular</a>
+              <a href="/tags/Angular%E8%A1%A8%E5%8D%95/" rel="tag"># Angular表单</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/07/angular/learn-6/" rel="prev" title="Angular学习-6-表单1">
+      <i class="fa fa-chevron-left"></i> Angular学习-6-表单1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/02/01/angular/learn-8/" rel="next" title="Angular学习-8-Rxjs">
+      Angular学习-8-Rxjs <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E9%A9%B1%E5%8A%A8%E8%A1%A8%E5%8D%95"><span class="nav-number">1.</span> <span class="nav-text">模板驱动表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ngModel"><span class="nav-number">1.1.</span> <span class="nav-text">[(ngModel)]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ngForm-%E5%92%8C-ngNoForm"><span class="nav-number">1.2.</span> <span class="nav-text">ngForm 和 ngNoForm</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FormArry-%E7%9A%84%E6%9B%BF%E4%BB%A3%E6%96%B9%E6%A1%88"><span class="nav-number">1.3.</span> <span class="nav-text">FormArry 的替代方案</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E8%A1%A8%E5%8D%95%E9%AA%8C%E8%AF%81"><span class="nav-number">2.</span> <span class="nav-text">模板表单验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Angular-%E6%8F%90%E4%BE%9B%E7%9A%84%E9%AA%8C%E8%AF%81%E5%99%A8"><span class="nav-number">2.1.</span> <span class="nav-text">Angular 提供的验证器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%AA%8C%E8%AF%81%E5%99%A8"><span class="nav-number">2.2.</span> <span class="nav-text">自定义验证器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%97%B6%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA"><span class="nav-number">2.3.</span> <span class="nav-text">验证时错误提示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E9%AA%8C%E8%AF%81"><span class="nav-number">2.4.</span> <span class="nav-text">异步验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%A7%E8%83%BD%E5%BD%B1%E5%93%8D"><span class="nav-number">3.</span> <span class="nav-text">性能影响</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">bingolil</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bingolil</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

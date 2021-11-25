@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="在单页应用中，你可以通过显示或隐藏与特定组件相对应的部分来更改用户看到的内容，而不用去服务器获取新页面。用户执行应用程序任务时，他们需要在定义好的不同视图之间移动。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular学习-5-路由2">
+<meta property="og:url" content="http://example.com/2018/12/19/angular/learn-5/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="在单页应用中，你可以通过显示或隐藏与特定组件相对应的部分来更改用户看到的内容，而不用去服务器获取新页面。用户执行应用程序任务时，他们需要在定义好的不同视图之间移动。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-home.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-login.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-console.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-list.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-detail1.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-detail2.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-detail3.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-joke-list.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-joke1.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-joke2.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-joke3.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-joke-list-button.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-joken.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-err1.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-err2.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-joke-getParams.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-subscribe.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-snapshot.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-diff1.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-h-route-diff2.png">
+<meta property="article:published_time" content="2018-12-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-24T01:13:26.962Z">
+<meta property="article:author" content="bingolil">
+<meta property="article:tag" content="Angular">
+<meta property="article:tag" content="Angular路由">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bingolil.github.io/images/angular-h-home.png">
+
+<link rel="canonical" href="http://example.com/2018/12/19/angular/learn-5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Angular学习-5-路由2 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2018/12/19/angular/learn-5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="bingolil">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular学习-5-路由2
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2018-12-19 00:00:00" itemprop="dateCreated datePublished" datetime="2018-12-19T00:00:00+08:00">2018-12-19</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-24 09:13:26" itemprop="dateModified" datetime="2021-11-24T09:13:26+08:00">2021-11-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">在单页应用中，你可以通过显示或隐藏与特定组件相对应的部分来更改用户看到的内容，而不用去服务器获取新页面。用户执行应用程序任务时，他们需要在定义好的不同视图之间移动。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="路由守卫"><a href="#路由守卫" class="headerlink" title="路由守卫"></a>路由守卫</h2><h3 id="意义"><a href="#意义" class="headerlink" title="意义"></a>意义</h3><p>大部分系统中都存在权限问题，比如基本的权限如使用系统的人大致可以可以分为游客，用户，管理员。更加复杂的权限如用户也存在等级，不同等级的用户有不同的功能，而且管理员也存在等级，不同等级的管理员所管理的业务也有区别。</p>
+<p><code>Angular</code> 项目的权限问题可以使用 <code>路由守卫</code> 解决，即通过 <code>路由守卫</code> 判断系统的使用者是否有权限进入某一个路由。</p>
+<h3 id="基本示例"><a href="#基本示例" class="headerlink" title="基本示例"></a>基本示例</h3><p>1，在 <code>cmd</code> 环境下，使用命令 <code>ng new high-route --routing</code> 新建一个 <code>high-route</code> 项目。</p>
+<p>2，<code>cd high-route</code> 进入 <code>high-route</code> 目录下，使用命令 <code>ng g c home</code>，<code>ng g c login</code>，<code>ng g m console --routing</code>，<code>ng g c console/index</code> 新建 <code>home</code> 组件， <code>login</code> 组件，<code>console</code> 模块，<code>console</code> 模块下 <code>index</code> 组件。</p>
+<p>3，修改部分项目代码如下所示。<br>app-routing.module.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">redirectTo</span>:<span class="string">&#x27;home&#x27;</span>,<span class="attr">pathMatch</span>:<span class="string">&#x27;full&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;home&#x27;</span>,<span class="attr">component</span>:HomeComponent&#125;,</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;login&#x27;</span>,<span class="attr">component</span>: LoginComponent&#125;,</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;console&#x27;</span>,<span class="attr">loadChildren</span>:<span class="string">&#x27;./console/console.module#ConsoleModule&#x27;</span>&#125;</span><br><span class="line">];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>app.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;nav navbar-nav&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">&quot;active&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&#x27;/home&#x27;</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">&quot;active&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">&quot;[&#x27;/console&#x27;]&quot;</span>&gt;</span>console<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>console-routing.module.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">component</span>:IndexComponent&#125;</span><br><span class="line">];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>4，效果图如下所示。<br><img src="https://bingolil.github.io/images/angular-h-home.png" alt="home 路由"></p>
+<p><img src="https://bingolil.github.io/images/angular-h-login.png" alt="login 路由"></p>
+<p><img src="https://bingolil.github.io/images/angular-h-console.png" alt="console 路由"></p>
+<p>5，假如在实际项目中，<code>console</code> 模块为控制台台模块，系统的使用者是游客时无法进入 <code>console</code> 模块，只有游客注册登录后才能进入 <code>console</code> 模块。当系统使用者点击页面导航栏中 <code>console 链接</code> 时，系统需要判断当前系统的使用者是否有权限进入 <code>console</code> 模块，若有权限则进入，没权限进入 <code>login</code> 路由，这是路由守卫需要做的事情。使用 <code>ng g s route-guard</code> 创建守卫服务。修改 <code>route-guard.service.ts</code> 代码如下所示</p>
+<p>route-guard.service.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Injectable&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;CanActivate&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/router&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;<span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">RouteGuardService</span> <span class="title">implements</span> <span class="title">CanActivate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"></span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">  canActivate():<span class="built_in">boolean</span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;<span class="comment">//不可进入   若为return true 可以进入</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这是最基本的路由守卫，当 <code>canActive()</code> 中返回 <code>false</code> 时，不可进入当前路由，返回 <code>true</code> 时可进入当前路由。</p>
+<p>6，在 <code>app-routing.modult.ts</code> 根路由配置信息文件中使用路由守卫，代码如下所示。</p>
+<p><code>app-routing.module.ts</code></p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; RouteGuardService &#125; <span class="keyword">from</span> <span class="string">&#x27;./route-guard.service&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">redirectTo</span>:<span class="string">&#x27;home&#x27;</span>,<span class="attr">pathMatch</span>:<span class="string">&#x27;full&#x27;</span>&#125;,</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;home&#x27;</span>,<span class="attr">component</span>:HomeComponent&#125;,</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;login&#x27;</span>,<span class="attr">component</span>:LoginComponent&#125;,</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;console&#x27;</span>,</span><br><span class="line">    <span class="attr">loadChildren</span>:<span class="string">&#x27;./console/console.module#ConsoleModule&#x27;</span>,</span><br><span class="line">    <span class="attr">canActivate</span>:[RouteGuardService] <span class="comment">//使用路由守卫的地方</span></span><br><span class="line">  &#125;</span><br><span class="line">];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>在 <code>home</code> 路由下，点击导航中的 <code>console</code> 链接，当路由守卫返回 <code>true</code> 时，页面进入 <code>console</code> 路由；当路由守卫返回 <code>false</code> 时，页面停留在 <code>home</code> 路由下，不能进入 <code>console</code> 路由页面。</p>
+<p>7，上面的路由守卫只是最基本的路由守卫。在实际的项目中，路由守卫不可能这么的简单，在实际的项目中，关于路由守卫是有一定的逻辑的。修改路由守卫代码如下所示。<br>route-guard.service.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Router, CanActivate &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; ActivatedRouteSnapshot &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/router&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;<span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">RouteGuardService</span> <span class="title">implements</span> <span class="title">CanActivate</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> router:Router</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">  canActivate(route: ActivatedRouteSnapshot):<span class="built_in">boolean</span>&#123;</span><br><span class="line">    <span class="comment">// 当前路由名称</span></span><br><span class="line">    <span class="keyword">var</span> nowPath = route.routeConfig.path;  </span><br><span class="line">    <span class="comment">// needGuardRoutes: 设置需要路由守卫的路由集合</span></span><br><span class="line">    <span class="keyword">const</span> needGuardRoutes = [<span class="string">&#x27;console&#x27;</span>];</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">var</span> isLogin=<span class="literal">true</span>;<span class="comment">//是否有权限</span></span><br><span class="line">    <span class="keyword">if</span> (needGuardRoutes.indexOf(nowPath) &gt;= <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">if</span> (!isLogin) &#123;</span><br><span class="line">        <span class="built_in">this</span>.router.navigate([<span class="string">&#x27;login&#x27;</span>]);<span class="comment">// 没有权限，跳转到login路由获取权限</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;<span class="comment">// 有权限，跳转到当前路由</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (nowPath === <span class="string">&#x27;login&#x27;</span>) &#123;<span class="comment">// 当前路由是login时 </span></span><br><span class="line">      <span class="keyword">if</span> (!isLogin) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>; <span class="comment">// 没有权限，跳转到当前login路由获取权限</span></span><br><span class="line">      &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">this</span>.router.navigate([<span class="string">&#x27;home&#x27;</span>]);<span class="comment">// 已登录，跳转到home</span></span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  	<span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行本地项目，当 <code>isLogin</code> 为 <code>true</code> 时（有权限），在 <code>home</code> 路由下点击导航栏的 <code>console</code> 链接时，进入 <code>console</code> 路由。</p>
+<p>当 <code>isLogin</code> 为 <code>false</code> 时（没有权限），在 <code>home</code> 路由下点击导航栏的 <code>console</code> 链接时，进入 <code>login</code> 路由。</p>
+<p>在实际的项目中，<code>isLogin</code> 不可能像现在这样直接写 <code>true</code> 和 <code>false</code> 来代表是否有权限，应该通过其它的办法来判断是否有权限（不同的系统有不同的判断方法）。</p>
+<h2 id="路由传参"><a href="#路由传参" class="headerlink" title="路由传参"></a>路由传参</h2><p>使用命令 <code>ng g m product --routing</code>，<code>ng g c product/list</code>，<code>ng g c product/detail</code> 创建 <code>product</code> 模块，<code>list</code> 组件，<code>detail</code> 组件。修改已有代码如下所示。</p>
+<p>app.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">....//代码块</span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">&quot;active&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">&quot;[&#x27;/console&#x27;]&quot;</span>&gt;</span>console<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- 导航栏新增product链接 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">&quot;active&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">&quot;[&#x27;/product&#x27;]&quot;</span>&gt;</span>product<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line">....//代码块</span><br></pre></td></tr></table></figure>
+
+<p>app-routing.module.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="attr">path</span>:<span class="string">&#x27;console&#x27;</span>,</span><br><span class="line">  <span class="attr">loadChildren</span>:<span class="string">&#x27;./console/console.module#ConsoleModule&#x27;</span>,</span><br><span class="line">  <span class="attr">canActivate</span>:[RouteGuardService]</span><br><span class="line">&#125;,  <span class="comment">//新增product路由</span></span><br><span class="line">&#123;<span class="attr">path</span>:<span class="string">&#x27;product&#x27;</span>,<span class="attr">loadChildren</span>:<span class="string">&#x27;./product/product.module#ProductModule&#x27;</span>&#125;</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>product-routing.module.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; ListComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;./list/list.component&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; DetailComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;./detail/detail.component&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [&#123;<span class="attr">path</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">component</span>:ListComponent&#125;];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="参数是-Url-路径一部分"><a href="#参数是-Url-路径一部分" class="headerlink" title="参数是 Url 路径一部分"></a>参数是 Url 路径一部分</h3><blockquote>
+<p>1，所传的参数是 <code>Url</code> 路径的一部分</p>
+</blockquote>
+<p>修改代码如下所示。<br>product-routing.module.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line">&#123;<span class="attr">path</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">component</span>:ListComponent&#125;,</span><br><span class="line">&#123;<span class="attr">path</span>:<span class="string">&#x27;:productId&#x27;</span>,<span class="attr">component</span>:DetailComponent&#125;</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>product/list/list.component.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;Router &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/router&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> router:Router</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">ngOnInit</span>(<span class="params"></span>)</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">goToDetail</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">  <span class="comment">// this.router.navigate([&#x27;/product/3&#x27;]);</span></span><br><span class="line">  <span class="comment">// this.router.navigate([&#x27;/product&#x27;,3]);</span></span><br><span class="line">  <span class="built_in">this</span>.router.navigateByUrl(<span class="string">&#x27;/product/3&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>product/list/list.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--代码块--&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;list-group&quot;</span>&gt;</span></span><br><span class="line">                         <span class="comment">&lt;!-- &lt;a routerLink=&quot;/product/1&quot;&gt;第一个产品&lt;/a&gt; --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">&quot;[&#x27;/product/1&#x27;]&quot;</span>&gt;</span>第一个产品<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">&quot;[&#x27;/product&#x27;,2]&quot;</span>&gt;</span>第二个产品<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-sm btn-default&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;goToDetail()&quot;</span>&gt;</span>第三个产品<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!--代码块--&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>product/detail/detail.component.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ActivatedRoute &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/router&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">DetailComponent</span> <span class="title">implements</span> <span class="title">OnInit</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="attr">productId</span>:<span class="built_in">any</span>;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> routerInfo:ActivatedRoute</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// this.productId=this.routerInfo.snapshot.params[&quot;productId&quot;];</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// this.productId=this.routerInfo.snapshot.paramMap.get(&quot;productId&quot;);</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// this.routerInfo.params.subscribe(data=&gt;&#123;</span></span><br><span class="line">    <span class="comment">//   this.productId=data[&#x27;productId&#x27;];</span></span><br><span class="line">    <span class="comment">// &#125;);</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">this</span>.routerInfo.paramMap.subscribe(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">      <span class="built_in">this</span>.productId=data.get(<span class="string">&#x27;productId&#x27;</span>);</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的 <code>product/detail/detail.component.ts</code> 代码中，获取参数的参数名应该和路由配置信息文件 <code>product-routing.module.ts</code> 中 <code>:productId</code> 的 <code>productId</code> 相同。不然获取不到参数。</p>
+<p>product/detail/detail.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">class</span>=<span class="string">&quot;breadcrumb&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/home&quot;</span>&gt;</span>Home<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/product&quot;</span>&gt;</span>product<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;active&quot;</span>&gt;</span>detail<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>当前产品id为：&#123;&#123;productId&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>传参效果图如下所示。<br><img src="https://bingolil.github.io/images/angular-h-route-list.png" alt="product路由"></p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-detail1.png" alt="点击product页面中 第一个产品"></p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-detail2.png" alt="点击product页面中 第二个产品"></p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-detail3.png" alt="点击product页面中 第三个产品 按钮"></p>
+<blockquote>
+<p>当参数是 <code>Url</code> 路径一部分时，使用该参数路由有两种方法。1，在页面中使用，如 <code>product/list/list.component.html</code>，暂时列举出3种格式（文中已列举）；2，在组件中使用，如 <code>product/list/list.component.ts</code>，有3种格式（文中已列举）。接收该参数的方式暂时列举出4种格式（已在 <code>product/detail/detail.component.ts</code> 中列举出来），推荐使用其中存在 <code>Map</code> 字符的方法，因为在 <code>Angular</code> 以后的版本中关于路由参数会淘汰掉不存在 <code>Map</code> 字符的方法属性。</p>
+</blockquote>
+<h3 id="正常传参"><a href="#正常传参" class="headerlink" title="正常传参"></a>正常传参</h3><blockquote>
+<p>如果在 <code>url</code> 中传递的参数不止一个，是多个的话，参数是 <code>Url</code> 路径的一部分显然不是一个很好的方式，这时应该传递参数应该使用正常的模式，即参数在 <code>Url</code> 的路径后面，以 <code>?</code> 号隔开</p>
+</blockquote>
+<p>1，使用命令 <code>ng g m joke --routing</code>，<code>ng g c joke/list</code> <code>ng g c joke/detail</code> 创建 <code>joke</code> 模块，<code>joke/list</code> 组件，<code>joke/detail</code> 组件，修改已有代码如下所示。<br>app-routing.module.st</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line">&#123;<span class="attr">path</span>:<span class="string">&#x27;product&#x27;</span>,<span class="attr">loadChildren</span>:<span class="string">&#x27;./product/product.module#ProductModule&#x27;</span>&#125;,</span><br><span class="line">&#123;<span class="attr">path</span>:<span class="string">&#x27;joke&#x27;</span>,<span class="attr">loadChildren</span>:<span class="string">&#x27;./joke/joke.module#JokeModule&#x27;</span>&#125; <span class="comment">//新增路由</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>app.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">&quot;active&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">&quot;[&#x27;/product&#x27;]&quot;</span>&gt;</span>product<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 导航栏新增joke链接 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">routerLinkActive</span>=<span class="string">&quot;active&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">&quot;[&#x27;/joke&#x27;]&quot;</span>&gt;</span>joke<span class="tag">&lt;/<span class="name">a</span>&gt;</span><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>joke-routing.module.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">import</span> &#123; ListComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;./list/list.component&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; DetailComponent &#125; <span class="keyword">from</span> <span class="string">&#x27;./detail/detail.component&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes: Routes = [</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">component</span>:ListComponent&#125;,</span><br><span class="line">  &#123;<span class="attr">path</span>:<span class="string">&#x27;detail&#x27;</span>,<span class="attr">component</span>:DetailComponent&#125;</span><br><span class="line">];</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>2，在组件 <code>UI</code> 中传递参数<br>修改 <code>joke/list.component.html</code> 代码如下所示。</p>
+<p>joke/list/list.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/joke/detail&quot;</span> [<span class="attr">queryParams</span>]=<span class="string">&quot;&#123;id:1,desc:3星&#125;&quot;</span>&gt;</span>第一个笑话<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/joke/detail&quot;</span> [<span class="attr">queryParams</span>]=<span class="string">&quot;secParmas&quot;</span>&gt;</span>第二个笑话<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span>&gt;</span><span class="comment">&lt;!-- routerLink和[routerLink] --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> [<span class="attr">routerLink</span>]=<span class="string">&quot;[&#x27;/joke/detail&#x27;]&quot;</span> [<span class="attr">queryParams</span>]=<span class="string">&quot;thiParmas&quot;</span>&gt;</span>第三个笑话<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br></pre></td></tr></table></figure>
+<p>joke/list/list.component.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line">secParmas=&#123;<span class="attr">id</span>:<span class="number">2</span>,<span class="attr">desc</span>:<span class="string">&#x27;6星&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line">thiParmas=&#123;<span class="attr">id</span>:<span class="number">3</span>,<span class="attr">desc</span>:<span class="string">&#x27;9星&#x27;</span>&#125;</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>参数传递的效果图如下所示。</p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-joke-list.png"></p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-joke1.png"></p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-joke2.png"></p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-joke3.png"></p>
+<blockquote>
+<p>在组件 <code>UI</code> 中传递参数有多种格式。</p>
+</blockquote>
+<p>3，在组件中传递参数，修改代码如下所示。<br>joke/list/list.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-sm btn-success&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;goJokeDetail()&quot;</span>&gt;</span>第n个笑话<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>joke/list/list.component.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Router &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/router&#x27;</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> router:Router</span>)</span> &#123; &#125;</span><br><span class="line">  <span class="function"><span class="title">goJokeDetail</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">    <span class="keyword">let</span> tsParmas=&#123;<span class="attr">id</span>:<span class="number">9</span>,<span class="attr">desc</span>:<span class="string">&#x27;n星&#x27;</span>&#125;</span><br><span class="line">    <span class="built_in">this</span>.router.navigate([<span class="string">&#x27;/joke/detail&#x27;</span>],&#123;<span class="attr">queryParams</span>:tsParmas&#125;)</span><br><span class="line">  &#125;</span><br><span class="line">....<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p>其效果图如下所示。</p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-joke-list-button.png"></p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-joken.png"></p>
+<h3 id="错误传参方式"><a href="#错误传参方式" class="headerlink" title="错误传参方式"></a>错误传参方式</h3><blockquote>
+<p>组件 <code>UI</code> 的 <code>a标签url路径中</code> 直接写</p>
+</blockquote>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/joke/detail?jokeId=1&amp;desc=3星&quot;</span>&gt;</span>第一个笑话<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 <code>Angular</code> 中，这是一种错误的写法，其错误如下图所示。</p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-err1.png"></p>
+<blockquote>
+<p>组件 <code>UI</code> 中没有使用 <code>queryParams</code> 传参，采用 <code>Params</code> 传参</p>
+</blockquote>
+<p>在 <code>Angular7</code> 版本中，正常传递参数时（参数不是 <code>Url</code> 路径的一部分），只有 <code>queryParams</code> 属性才可以传递。</p>
+<p>使用其它属性（如 <code>Params</code>）传递时，程序会报错，因为 <code>Params</code> 不是 <code>a</code> 链接的属性，其代码以及错误如下所示。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">li</span> <span class="attr">class</span>=<span class="string">&quot;list-group-item&quot;</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/joke/detail&quot;</span> [<span class="attr">Params</span>]=<span class="string">&quot;&#123;id:1,desc:&#x27;3星&#x27;&#125;&quot;</span>&gt;</span>第一个笑话<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://bingolil.github.io/images/angular-h-route-err2.png"></p>
+<h3 id="获取参数"><a href="#获取参数" class="headerlink" title="获取参数"></a>获取参数</h3><p>修改 <code>joke/detail</code> 组件代码如下所示。</p>
+<p>joke/detail/detail.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;nowJoke&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>笑话id:&#123;&#123;nowJoke.id&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>笑话描述:&#123;&#123;nowJoke.desc&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;secJoke&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>笑话id:&#123;&#123;secJoke.id&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>笑话描述:&#123;&#123;secJoke.desc&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>joke/detail/detail.component.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ActivatedRoute, Params &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/router&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">DetailComponent</span> <span class="title">implements</span> <span class="title">OnInit</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> routeInfo:ActivatedRoute</span>)</span> &#123; &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="attr">nowJoke</span>:<span class="built_in">any</span>;</span><br><span class="line">  </span><br><span class="line">  secJoke=&#123;<span class="attr">id</span>:<span class="literal">null</span>,<span class="attr">desc</span>:<span class="literal">null</span>&#125;</span><br><span class="line">  </span><br><span class="line">  <span class="function"><span class="title">ngOnInit</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">    <span class="comment">// this.routeInfo.queryParams.subscribe((data:Params)=&gt;&#123;</span></span><br><span class="line">    <span class="comment">// 	this.nowJoke=Object.assign(&#123;&#125;,data);</span></span><br><span class="line">    <span class="comment">// &#125;)</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">//this.routeInfo.queryParamMap.subscribe((data:any)=&gt;&#123;</span></span><br><span class="line">    <span class="comment">//  this.nowJoke=Object.assign(&#123;&#125;,data.params);</span></span><br><span class="line">    <span class="comment">//&#125;)</span></span><br><span class="line">  </span><br><span class="line">    <span class="built_in">this</span>.secJoke.id=<span class="built_in">this</span>.routeInfo.snapshot.queryParamMap.get(<span class="string">&#x27;id&#x27;</span>)</span><br><span class="line">    <span class="built_in">this</span>.secJoke.desc=<span class="built_in">this</span>.routeInfo.snapshot.queryParamMap.get(<span class="string">&#x27;desc&#x27;</span>)</span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>获取参数效果图如下所示。</p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-joke-getParams.png"></p>
+<blockquote>
+<p>获取正常参数的方式暂时列举出3种，如上 <code>joke/detail/detail.component.ts</code> 所示。</p>
+</blockquote>
+<h2 id="传参相似处"><a href="#传参相似处" class="headerlink" title="传参相似处"></a>传参相似处</h2><h3 id="参数快照和参数订阅"><a href="#参数快照和参数订阅" class="headerlink" title="参数快照和参数订阅"></a>参数快照和参数订阅</h3><p>参数快照和参数订阅都是获取路由参数的方法，它们的功能有一定的重复性，但也有一定的区别。</p>
+<p>在上面的代码中，获取参数的方法分为参数订阅（<code>subscribe</code>）和参数快照（<code>snapshot</code>）。</p>
+<p>其区别的代码示实例如下。<br>product/detail/detail.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- 代码块 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/product/2&quot;</span>&gt;</span>进入第二个产品<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>参数订阅获取参数代码：product/detail/detail.component.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//代码块</span></span><br><span class="line"><span class="built_in">this</span>.routerInfo.paramMap.subscribe(<span class="function"><span class="params">data</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>.productId=data.get(<span class="string">&#x27;productId&#x27;</span>);</span><br><span class="line">&#125;);</span><br><span class="line"><span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://bingolil.github.io/images/angular-h-route-subscribe.png" alt="参数订阅"></p>
+<p>参数快照获取参数代码：product/detail/detail.component.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//代码块</span></span><br><span class="line"><span class="built_in">this</span>.productId=<span class="built_in">this</span>.routerInfo.snapshot.paramMap.get(<span class="string">&quot;productId&quot;</span>);</span><br><span class="line"><span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://bingolil.github.io/images/angular-h-route-snapshot.png" alt="参数快照"></p>
+<p>从上面的代码以及两张图对比中，可以发现，在参数订阅时，点击 <code>进入第二个产品</code> 链接，页面中的 <code>productId</code> 数据发生了改变，而在参数快照时，<code>Url</code> 地址发生改变，但页面中的 <code>productId</code> 并没有发生改变。</p>
+<blockquote>
+<p><strong>原因</strong>：这种情况主要发生在同一个组件的跳转。从 <code>product/1</code> 跳转到 <code>porduct/2</code> 时，都是在 <code>product/detail</code> 组件中跳转。当使用参数订阅，路由跳转时，根据订阅者模式，组件会再次获取路由参数；在使用参数快照时，由于在 <code>product/1</code> 路由下，<code>product/detail</code> 组件已经被创建了，当跳转到 <code>product/2</code> 时，组件不会重新执行 <code>ngOnInit()</code> 方法，所以不会重新获取参数。</p>
+</blockquote>
+<h3 id="paramMap-和-queryParamMap"><a href="#paramMap-和-queryParamMap" class="headerlink" title="paramMap 和 queryParamMap"></a>paramMap 和 queryParamMap</h3><p>在路由传参中，<code>parmaMap</code> 和 <code>queryParamMap</code> 都有被使用，它们是有很大的区别的，<code>parmaMap</code> 用于获取路由传参时，其参数是路由 <code>Url</code> 路径的一部分；<code>queryParamMap</code> 用于获取正常的传递参数。</p>
+<p>其示例如下所示。</p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-diff1.png" alt="参数是路由 `Url` 路径的一部分"></p>
+<p>从上图可以知道，当路由参数是路由 <code>Url</code> 的一部分，其参数是放在 <code>params</code> 中的，若开发者从 <code>queryParams</code> 获取该参数是获取不到的。因为 <code>queryParams</code> 是一个空对象。 </p>
+<p><img src="https://bingolil.github.io/images/angular-h-route-diff2.png" alt="参数是正常参数"></p>
+<p>从上图可以知道，当路由参数是正常参数时，其参数是放在 <code>queryParams</code> 中的，若开发者从 <code>params</code> 获取该参数是获取不到的。因为 <code>params</code> 是一个空对象。 </p>
+<h3 id="navigate-和-navigateByUrl"><a href="#navigate-和-navigateByUrl" class="headerlink" title="navigate 和 navigateByUrl"></a>navigate 和 navigateByUrl</h3><p><code>navigate</code> 和 <code>navigateByUrl</code> 两个方法都可以用于页面导航，但它们之间也有一定的区别。<code>router.navigateByUrl()</code> 方法是使用一个全新的路由地址替换已有的路由地址；<code>router.navigate()</code> 方法是基于一系列输入参数，产生一个新的 URL 地址。</p>
+<p>示例：在路由中存在 <code>辅助路由</code> 时，假如当前路由为 <code>/product(aux:chat)</code>，当运行 <code>router.navigateByUrl([&#39;/product/1&#39;])</code> 后，其 <code>Url</code> 地址栏为 <code>product/1</code>；当运行 <code>router.navigate([&#39;/product/1&#39;])</code> 后，其 <code>Url</code> 地址栏为 <code>product/1(aux:chat)</code>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Angular/" rel="tag"># Angular</a>
+              <a href="/tags/Angular%E8%B7%AF%E7%94%B1/" rel="tag"># Angular路由</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/10/angular/learn-4/" rel="prev" title="Angular学习-4-路由1">
+      <i class="fa fa-chevron-left"></i> Angular学习-4-路由1
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/07/angular/learn-6/" rel="next" title="Angular学习-6-表单1">
+      Angular学习-6-表单1 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB"><span class="nav-number">1.</span> <span class="nav-text">路由守卫</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%84%8F%E4%B9%89"><span class="nav-number">1.1.</span> <span class="nav-text">意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%A4%BA%E4%BE%8B"><span class="nav-number">1.2.</span> <span class="nav-text">基本示例</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E4%BC%A0%E5%8F%82"><span class="nav-number">2.</span> <span class="nav-text">路由传参</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E6%98%AF-Url-%E8%B7%AF%E5%BE%84%E4%B8%80%E9%83%A8%E5%88%86"><span class="nav-number">2.1.</span> <span class="nav-text">参数是 Url 路径一部分</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E5%B8%B8%E4%BC%A0%E5%8F%82"><span class="nav-number">2.2.</span> <span class="nav-text">正常传参</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E4%BC%A0%E5%8F%82%E6%96%B9%E5%BC%8F"><span class="nav-number">2.3.</span> <span class="nav-text">错误传参方式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%8E%B7%E5%8F%96%E5%8F%82%E6%95%B0"><span class="nav-number">2.4.</span> <span class="nav-text">获取参数</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%A0%E5%8F%82%E7%9B%B8%E4%BC%BC%E5%A4%84"><span class="nav-number">3.</span> <span class="nav-text">传参相似处</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%82%E6%95%B0%E5%BF%AB%E7%85%A7%E5%92%8C%E5%8F%82%E6%95%B0%E8%AE%A2%E9%98%85"><span class="nav-number">3.1.</span> <span class="nav-text">参数快照和参数订阅</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#paramMap-%E5%92%8C-queryParamMap"><span class="nav-number">3.2.</span> <span class="nav-text">paramMap 和 queryParamMap</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#navigate-%E5%92%8C-navigateByUrl"><span class="nav-number">3.3.</span> <span class="nav-text">navigate 和 navigateByUrl</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">bingolil</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bingolil</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

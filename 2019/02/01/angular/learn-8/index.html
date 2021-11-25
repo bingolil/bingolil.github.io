@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="RxJS（响应式扩展的 JavaScript 版）是一个使用可观察对象进行响应式编程的库，它让组合异步代码和基于回调的代码变得更简单。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular学习-8-Rxjs">
+<meta property="og:url" content="http://example.com/2019/02/01/angular/learn-8/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="RxJS（响应式扩展的 JavaScript 版）是一个使用可观察对象进行响应式编程的库，它让组合异步代码和基于回调的代码变得更简单。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-rxjs-observer.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-rxjs-subject.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-rxjs-be1.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-rxjs-be2.png">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-rxjs-rey.png">
+<meta property="article:published_time" content="2019-01-31T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-24T02:58:34.676Z">
+<meta property="article:author" content="bingolil">
+<meta property="article:tag" content="Angular">
+<meta property="article:tag" content="Rxjs">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bingolil.github.io/images/angular-rxjs-observer.png">
+
+<link rel="canonical" href="http://example.com/2019/02/01/angular/learn-8/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Angular学习-8-Rxjs | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/02/01/angular/learn-8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="bingolil">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular学习-8-Rxjs
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-02-01 00:00:00" itemprop="dateCreated datePublished" datetime="2019-02-01T00:00:00+08:00">2019-02-01</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-24 10:58:34" itemprop="dateModified" datetime="2021-11-24T10:58:34+08:00">2021-11-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">RxJS（响应式扩展的 JavaScript 版）是一个使用可观察对象进行响应式编程的库，它让组合异步代码和基于回调的代码变得更简单。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="什么是Rxjs"><a href="#什么是Rxjs" class="headerlink" title="什么是Rxjs"></a>什么是Rxjs</h2><p><code>Rxjs</code> 是 <code>javascript</code> 的响应式扩展。其功能是利用响应式编程的模式来实现 <code>javascript</code> 的异步编程</p>
+<p><code>Rxjs</code> 相关的对象如下所示</p>
+<blockquote>
+<ul>
+<li><code>Observable</code>（可观察对象）：表示一种概念，其支持发布在与订阅者之间传递信息</li>
+<li><code>observer</code>（观察者）：回调函数的集合，用于处理可观察对象提供的值</li>
+<li><code>Subscription</code>（订阅）：代表可观察对象的执行，一般用于取消订阅</li>
+<li><code>Subject</code>（主题）：继承 <code>Observable</code> 类，是特殊的 <code>Observable</code> 对象</li>
+<li><code>opterator</code>（操作符）：采用函数式编程风格的纯函数</li>
+</ul>
+</blockquote>
+<h2 id="Observable（可观察对象）"><a href="#Observable（可观察对象）" class="headerlink" title="Observable（可观察对象）"></a>Observable（可观察对象）</h2><p><code>Observable</code> 是 <code>Rxjs</code> 的核心概念之一，它是一个可以被观察的对象，其状态改变时，会将其改变推送给观察它的对象（观察者）</p>
+<h3 id="Observables"><a href="#Observables" class="headerlink" title="Observables"></a>Observables</h3><p>可观察对象支持在应用中发布者和订阅者之间传递信息，进行事件处理、异步编程和处理多个值，其有很大的优势。</p>
+<p><code>Observable</code> 是声明式，即当有观察者订阅它之后，它才会同步或异步的返回 0 或多个值，其代码如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Observable &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> observable=Observable.create(<span class="function">(<span class="params">observer</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">setInterval</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">     observer.next(<span class="string">&#x27;aaa&#x27;</span>);</span><br><span class="line">  &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>上面实例创建的一个可观察对象，当它被观察者订阅后，它会向观察者秒发送一次 <code>aaa</code></p>
+<h3 id="Observer（观察者）"><a href="#Observer（观察者）" class="headerlink" title="Observer（观察者）"></a>Observer（观察者）</h3><p><code>observer</code>（观察者）用于接收可观察对象通知的处理器。该对象定义了一些回调函数来处理可观察对象可能发来的三种通知</p>
+<table>
+<thead>
+<tr>
+<th>通知类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>next</td>
+<td>必选。 用来处理可观察对象发送的值</td>
+</tr>
+<tr>
+<td>error</td>
+<td>可选。用来处理错误通知</td>
+</tr>
+<tr>
+<td>complete</td>
+<td>可选。用来处理执行完毕通知</td>
+</tr>
+</tbody></table>
+<p>定义一个观察者如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">bb=&#123;</span><br><span class="line">  <span class="attr">next</span>:<span class="function"><span class="params">x</span>=&gt;</span><span class="built_in">console</span>.log(<span class="string">&#x27;x的值：&#x27;</span>+x), <span class="comment">//必写</span></span><br><span class="line">  <span class="attr">error</span>:<span class="function"><span class="params">err</span>=&gt;</span><span class="built_in">console</span>.log(<span class="string">&#x27;当前错误：&#x27;</span>+err), <span class="comment">//可写，可不写</span></span><br><span class="line">  <span class="attr">complete</span>:<span class="function">()=&gt;</span><span class="built_in">console</span>.log(<span class="string">&#x27;完成&#x27;</span>)  <span class="comment">//可写，可不写</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面定义了一个观察者，当观察者订阅对象后，每次观察者会将接收的值在控制台输出，其代码如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Observable &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> observable=Observable.create(<span class="function">(<span class="params">observer</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">setInterval</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">     observer.next(<span class="string">&#x27;aaa&#x27;</span>);</span><br><span class="line">  &#125;,<span class="number">1000</span>)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bb=&#123;</span><br><span class="line">  <span class="attr">next</span>:<span class="function"><span class="params">x</span>=&gt;</span><span class="built_in">console</span>.log(<span class="string">&#x27;x的值：&#x27;</span>+x), <span class="comment">//必写</span></span><br><span class="line">  <span class="attr">error</span>:<span class="function"><span class="params">err</span>=&gt;</span><span class="built_in">console</span>.log(<span class="string">&#x27;当前错误：&#x27;</span>+err), <span class="comment">//可写，可不写</span></span><br><span class="line">  <span class="attr">complete</span>:<span class="function">()=&gt;</span><span class="built_in">console</span>.log(<span class="string">&#x27;完成&#x27;</span>)  <span class="comment">//可写，可不写</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">observable.subscribe(dd); <span class="comment">//观察者 dd 订阅 observable</span></span><br></pre></td></tr></table></figure>
+
+<p>在浏览器控制台的输出如下图所示</p>
+<p><img src="https://bingolil.github.io/images/angular-rxjs-observer.png"></p>
+<h3 id="Subscription（订阅）"><a href="#Subscription（订阅）" class="headerlink" title="Subscription（订阅）"></a>Subscription（订阅）</h3><p><code>Subscription</code> 的作用一般用来取消订阅，取消订阅的时间节点根据需求设置，其代码如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">of</span>, Subscription &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="attr">oob</span>:Subscription;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bb=<span class="keyword">of</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>); <span class="comment">//rxjs 静态方法创建可观察对象</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dd=&#123; <span class="comment">//观察者</span></span><br><span class="line"> <span class="attr">next</span>:<span class="function"><span class="params">x</span>=&gt;</span><span class="built_in">console</span>.log(<span class="string">&#x27;输出的值：&#x27;</span>+x),</span><br><span class="line"> <span class="attr">error</span>:<span class="function"><span class="params">err</span>=&gt;</span><span class="built_in">console</span>.log(<span class="string">&#x27;当前错误：&#x27;</span>+err),</span><br><span class="line"> <span class="attr">complete</span>:<span class="function">()=&gt;</span><span class="built_in">console</span>.log(<span class="string">&#x27;完成&#x27;</span>),</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>.oob=bb.subscribe(dd); <span class="comment">//订阅</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>.oob.unsubscribe(); <span class="comment">//取消订阅</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="创建-Observable"><a href="#创建-Observable" class="headerlink" title="创建 Observable"></a>创建 Observable</h3><p><code>Opterator</code> 提供了多种操作符来创建 <code>Observable</code> 对象，具体如下所示</p>
+<blockquote>
+<p><strong>of</strong>：处理数据，字符串或数字</p>
+</blockquote>
+<p>具体例子如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">of</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bb=<span class="keyword">of</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>); <span class="comment">//可观察对象</span></span><br><span class="line"></span><br><span class="line">bb.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 输出  1,2,3</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>from</strong>：处理数据，将数组一个一个的发送</p>
+</blockquote>
+<p>具体例子如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">from</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> bb=<span class="keyword">from</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>]);; <span class="comment">//可观察对象</span></span><br><span class="line"></span><br><span class="line">bb.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 输出  1,2,3</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>fromEvent</strong>：处理事件</p>
+</blockquote>
+<p>具体例子如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; fromEvent &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> node=<span class="built_in">document</span>.querySelector(<span class="string">&#x27;input[type=text]&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> input$=fromEvent(node,<span class="string">&#x27;input&#x27;</span>);</span><br><span class="line"></span><br><span class="line">input$.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//输出 input 事件</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>empty</strong>：返回一个空的 <code>Observable</code> 对象，若订阅该对象，它会马上返回 <code>complete</code> 信息</p>
+</blockquote>
+<p>具体例子如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; empty &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> cc=empty();</span><br><span class="line">cc.subscribe(&#123;</span><br><span class="line">  <span class="attr">next</span>:<span class="function"><span class="params">xx</span>=&gt;</span><span class="built_in">console</span>.log(xx),</span><br><span class="line">  <span class="attr">error</span>:<span class="function"><span class="params">err</span>=&gt;</span><span class="built_in">console</span>.log(err),</span><br><span class="line">  <span class="attr">complete</span>:<span class="function">()=&gt;</span><span class="built_in">console</span>.log(<span class="string">&quot;执行完成&quot;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//输出  执行完成</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>nerver</strong>：返回一个无穷的 <code>Observable</code>，订阅它后，什么都不会发生</p>
+</blockquote>
+<p>具体例子如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="built_in">never</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> dd=<span class="built_in">never</span>();</span><br><span class="line">dd.subscribe(<span class="function"><span class="params">xx</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//无输出</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>throwError</strong>：抛出一个错误的 <code>Observable</code></p>
+</blockquote>
+<p>具体例子如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; throwError &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ee=throwError(<span class="string">&#x27;xx&#x27;</span>)</span><br><span class="line">ee.subscribe(&#123;</span><br><span class="line">  <span class="attr">next</span>:<span class="function"><span class="params">xx</span>=&gt;</span><span class="built_in">console</span>.log(xx),</span><br><span class="line">  <span class="attr">error</span>:<span class="function"><span class="params">err</span>=&gt;</span><span class="built_in">console</span>.log(<span class="string">&quot;错误为：&quot;</span>+err),</span><br><span class="line">  <span class="attr">complete</span>:<span class="function">()=&gt;</span><span class="built_in">console</span>.log(<span class="string">&quot;执行完成&quot;</span>)</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">//输出  错误为：xx</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>interval</strong>：接收一个数值为参数，该数值代表时间间隔。每到一定时间，其会推送一个递增的数字，从 0 开始</p>
+</blockquote>
+<p>具体例子如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; interval &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> ff=interval(<span class="number">1000</span>);</span><br><span class="line">ff.subscribe(<span class="function"><span class="params">xx</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 输出  0,1,2,3,4,5......</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>timer</strong>：接收两个参数，第一个参数代表第一次推送需要的时间，第二个参数代表推送第一次推送后，推送其它值的间隔时间</p>
+</blockquote>
+<p>具体例子如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; timer &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> hh=timer(<span class="number">1000</span>,<span class="number">2000</span>);</span><br><span class="line">hh.subscribe(<span class="function"><span class="params">xx</span>=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="comment">// 输出  1（第一秒推送）,2（第三秒推送）,3（第五秒推送）....</span></span><br></pre></td></tr></table></figure>
+
+
+<h2 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h2><h3 id="Subject-和-Observable"><a href="#Subject-和-Observable" class="headerlink" title="Subject 和 Observable"></a>Subject 和 Observable</h3><p><code>Subject</code> 是一种特殊的 <code>Observable</code>（可观察对象），它既是 <code>Observable</code> 对象，又是 <code>Observer</code> 对象；它允许将值多播给多个订阅者，而普通的 <code>Observable</code> 是单播的（每个已订阅的观察者都拥有 <code>Observable</code> 的独立执行）。</p>
+<p><code>Subject</code> 是观察者模式的实现，它继承了 <code>Obsevalbe</code>。当有观察者订阅它时，它将订阅者添加到观察者列表中，它每次接收到新值时，它会遍历观察者列表，调用其 <code>next</code> 方法，将值推送出去。<code>Subject</code> 用法如下</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Subject &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">_oob=<span class="keyword">new</span> Subject&lt;<span class="built_in">any</span>&gt;();</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>._oob.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;observerA订阅到的值为：&#x27;</span>+xx);</span><br><span class="line">&#125;)</span><br><span class="line"><span class="built_in">this</span>._oob.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;observerB订阅到的值为：&#x27;</span>+xx);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>._oob.next(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">this</span>._oob.next(<span class="number">2</span>);</span><br></pre></td></tr></table></figure>
+
+<p>上述代码在浏览控制台中输出如下图所示<br><img src="https://bingolil.github.io/images/angular-rxjs-subject.png"></p>
+<h3 id="BehaviorSubject"><a href="#BehaviorSubject" class="headerlink" title="BehaviorSubject"></a>BehaviorSubject</h3><p>有时我们希望 <code>Subject</code> 能保存当前的最新状态，而不是单纯的对象推送，即每新增加一个观察者，当前 <code>Subuject</code> 能够立即向新增加的观察者推送最新的值，而不是没有响应。具体代码如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Subject &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">_oob=<span class="keyword">new</span> Subject&lt;<span class="built_in">any</span>&gt;();</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>._oob.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;observerA订阅到的值为：&#x27;</span>+xx);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>._oob.next(<span class="number">1</span>);<span class="comment">//发送值</span></span><br><span class="line"><span class="built_in">this</span>._oob.next(<span class="number">2</span>);<span class="comment">//发送值</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>._oob.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;observerB订阅到的值为：&#x27;</span>+xx);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;,<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>在浏览器控制台输出结果如下图所示</p>
+<p><img src="https://bingolil.github.io/images/angular-rxjs-be1.png"></p>
+<p>从上图中，可以看到 <code>observerB</code> 没有订阅到数据，因为 <code>obseverB</code> 订阅 <code>_oob</code> 后，<code>_oob</code> 没有再调用 <code>next</code> 推送数据。很多时候我们希望 <code>Subject</code> 能保存当前的最新状态，当新增订阅者时，该订阅者可以获取当前 <code>Subject</code> 的最新状态。完成该功能，需要使用 <code>BehaviorSubject</code> 对象，其代码如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; BehaviorSubject &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">_oob=<span class="keyword">new</span> BehaviorSubject&lt;<span class="built_in">any</span>&gt;(<span class="number">0</span>); <span class="comment">//设定初始值</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>._oob.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&#x27;observerA订阅到的值为：&#x27;</span>+xx);</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>._oob.next(<span class="number">1</span>);<span class="comment">//发送值</span></span><br><span class="line"><span class="built_in">this</span>._oob.next(<span class="number">2</span>);<span class="comment">//发送值</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>._oob.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;observerB订阅到的值为：&#x27;</span>+xx);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;,<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>浏览器控制台中输出如下图所示</p>
+<p><img src="https://bingolil.github.io/images/angular-rxjs-be2.png"></p>
+<p>从上图中可以看到，<code>observerB</code> 获取到了 <code>_obb</code> 对象的最新状态，并且最开始时，<code>Subject</code> 对象推送了一个 <code>0</code></p>
+<blockquote>
+<p><strong>注意：</strong>因为新增订阅者需要获取到当前 <code>Subject</code> 最新的状态，所以在实例化 <code>BehaviorSubject</code> 需要一个初始状态</p>
+</blockquote>
+<h3 id="ReplaySubject"><a href="#ReplaySubject" class="headerlink" title="ReplaySubject"></a>ReplaySubject</h3><p>有时我们希望 <code>Subject</code> 新增订阅者后，能向新增的订阅者发送 <code>Subjcet</code> 的最新的几次状态，实现该功能，需要使用到 <code>ReplaySubject</code> 对象，其代码如下所示</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; ReplaySubject &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">_ss=<span class="keyword">new</span> ReplaySubject&lt;<span class="built_in">any</span>&gt;(<span class="number">2</span>); <span class="comment">//2 代表的是发送最新的几次状态</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>._ss.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">&quot;observerX订阅到的值为：&quot;</span>+xx)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="built_in">this</span>._ss.next(<span class="number">1</span>);</span><br><span class="line"><span class="built_in">this</span>._ss.next(<span class="number">2</span>);</span><br><span class="line"><span class="built_in">this</span>._ss.next(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">this</span>._ss.subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">    <span class="built_in">console</span>.log(<span class="string">&#x27;observerY订阅到的值为：&#x27;</span>+xx);</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;,<span class="number">1000</span>)</span><br></pre></td></tr></table></figure>
+
+<p>浏览器控制台中的输出如下图所示</p>
+<p><img src="https://bingolil.github.io/images/angular-rxjs-rey.png"></p>
+<p>从上图中，可以看到 <code>_ss</code> 向1秒后新增加的订阅者发送了两次最新的状态</p>
+<blockquote>
+<p><strong><code>BehaviorSubject(1)</code> 和 <code>ReplaySubject(1)</code> 的区别：</strong>可能有人认为 <code>BehaviorSubject(1)</code> 等同于 <code>ReplaySubject(1)</code>，其实它们是不一样的，有很大的区别，创建 <code>BehaviorSubject</code> 对象时，其参数是对象的初始值，用于表示对象的初始状态；而 <code>ReplaySubject</code> 是事件的回放，其参数代表回放的次数</p>
+</blockquote>
+<h2 id="Opterator"><a href="#Opterator" class="headerlink" title="Opterator"></a>Opterator</h2><p><code>Rxjs</code> 提供了大量的操作符来进行数据处理，常见的操作符如下所示</p>
+<blockquote>
+<p><strong>map</strong>：从内部的 <code>Observable</code> 获取者，操作完成后返回给父级流对象</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">of</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> aa=<span class="keyword">of</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">aa.pipe(map(<span class="function"><span class="params">x</span>=&gt;</span>&#123;<span class="keyword">return</span> x*x&#125;)).subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;) <span class="comment">//输出为 1，4，9</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>debounceTime</strong>：主要用于防抖操作，减少订阅次数</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">of</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; debounceTime &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> aa=<span class="keyword">of</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">aa.pipe(debounceTime(<span class="number">1000</span>)).subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;) <span class="comment">//1秒后输出  3</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>filter</strong>：用于过滤数据</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">of</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; filter &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> aa=<span class="keyword">of</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>);</span><br><span class="line">aa.pipe(filter(<span class="function"><span class="params">xx</span>=&gt;</span>xx%<span class="number">2</span>==<span class="number">0</span>)).subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;) <span class="comment">//输出  2，4</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>reduce</strong></p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">of</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; reduce &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> aa=<span class="keyword">of</span>(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>);</span><br><span class="line">aa.pipe(reduce(x,y)=&gt;&#123;<span class="keyword">return</span> x+y&#125;)).subscribe(<span class="function">(<span class="params">xx</span>)=&gt;</span>&#123;</span><br><span class="line">  <span class="built_in">console</span>.log(xx);</span><br><span class="line">&#125;) <span class="comment">//输出  6</span></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Angular/" rel="tag"># Angular</a>
+              <a href="/tags/Rxjs/" rel="tag"># Rxjs</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2019/01/21/angular/learn-7/" rel="prev" title="Angular学习-7-表单2">
+      <i class="fa fa-chevron-left"></i> Angular学习-7-表单2
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AFRxjs"><span class="nav-number">1.</span> <span class="nav-text">什么是Rxjs</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Observable%EF%BC%88%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%AF%B9%E8%B1%A1%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">Observable（可观察对象）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Observables"><span class="nav-number">2.1.</span> <span class="nav-text">Observables</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Observer%EF%BC%88%E8%A7%82%E5%AF%9F%E8%80%85%EF%BC%89"><span class="nav-number">2.2.</span> <span class="nav-text">Observer（观察者）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Subscription%EF%BC%88%E8%AE%A2%E9%98%85%EF%BC%89"><span class="nav-number">2.3.</span> <span class="nav-text">Subscription（订阅）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA-Observable"><span class="nav-number">2.4.</span> <span class="nav-text">创建 Observable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Subject"><span class="nav-number">3.</span> <span class="nav-text">Subject</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Subject-%E5%92%8C-Observable"><span class="nav-number">3.1.</span> <span class="nav-text">Subject 和 Observable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BehaviorSubject"><span class="nav-number">3.2.</span> <span class="nav-text">BehaviorSubject</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ReplaySubject"><span class="nav-number">3.3.</span> <span class="nav-text">ReplaySubject</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Opterator"><span class="nav-number">4.</span> <span class="nav-text">Opterator</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">bingolil</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bingolil</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

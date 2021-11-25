@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"example.com","root":"/","scheme":"Mist","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="Angular 提供了两种不同的方法来通过表单处理用户输入：响应式表单和模板驱动表单。 两者都从视图中捕获用户输入事件、验证用户输入、创建表单模型、修改数据模型，并提供跟踪这些更改的途径。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular学习-6-表单1">
+<meta property="og:url" content="http://example.com/2019/01/07/angular/learn-6/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Angular 提供了两种不同的方法来通过表单处理用户输入：响应式表单和模板驱动表单。 两者都从视图中捕获用户输入事件、验证用户输入、创建表单模型、修改数据模型，并提供跟踪这些更改的途径。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://bingolil.github.io/images/angular-formarray.png">
+<meta property="article:published_time" content="2019-01-06T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-11-24T02:54:17.510Z">
+<meta property="article:author" content="bingolil">
+<meta property="article:tag" content="Angular">
+<meta property="article:tag" content="Angular表单">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://bingolil.github.io/images/angular-formarray.png">
+
+<link rel="canonical" href="http://example.com/2019/01/07/angular/learn-6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Angular学习-6-表单1 | Hexo</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Hexo</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://example.com/2019/01/07/angular/learn-6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="bingolil">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular学习-6-表单1
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-01-07 00:00:00" itemprop="dateCreated datePublished" datetime="2019-01-07T00:00:00+08:00">2019-01-07</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-11-24 10:54:17" itemprop="dateModified" datetime="2021-11-24T10:54:17+08:00">2021-11-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Angular/" itemprop="url" rel="index"><span itemprop="name">Angular</span></a>
+                </span>
+            </span>
+
+          
+            <div class="post-description">Angular 提供了两种不同的方法来通过表单处理用户输入：响应式表单和模板驱动表单。 两者都从视图中捕获用户输入事件、验证用户输入、创建表单模型、修改数据模型，并提供跟踪这些更改的途径。</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>在 <code>Angular</code> 中，提供了两种表单来处理用户的输入，<code>模板驱动表单</code> 和 <code>响应式表单</code>。</p>
+<h2 id="建立表单模型"><a href="#建立表单模型" class="headerlink" title="建立表单模型"></a>建立表单模型</h2><h3 id="响应式表单"><a href="#响应式表单" class="headerlink" title="响应式表单"></a>响应式表单</h3><blockquote>
+<p><strong>前提条件</strong>：在需要使用响应式表单的组件所在的模块中引入 <code>ReactiveFormsModule</code></p>
+</blockquote>
+<p>最基本的响应式表单</p>
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span>  [<span class="attr">formControl</span>]=<span class="string">&quot;nameControl&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; FormControl &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">nameControl = <span class="keyword">new</span> FormControl(<span class="string">&#x27;jack&#x27;</span>); <span class="comment">//jack是初始值，也可以为空字符串(&#x27;&#x27;)</span></span><br></pre></td></tr></table></figure>
+
+<p>此处为单个控件，使用响应式表单时需要引入 <code>FormControl</code>。</p>
+<p><strong>注：</strong> <code>Html</code> 模板中的 <code>class=&quot;form-control&quot;</code> 代码只和样式有关，和响应式表单无关。</p>
+<h3 id="模板驱动表单"><a href="#模板驱动表单" class="headerlink" title="模板驱动表单"></a>模板驱动表单</h3><blockquote>
+<p><strong>前提</strong>：在需要使用响应式表单的组件的对应的模块中引入 <code>FormsModule</code></p>
+</blockquote>
+<p>最基本的模板驱动表单</p>
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">name</span>=<span class="string">&quot;favorite&quot;</span>  [(<span class="attr">ngModel</span>)]=<span class="string">&quot;color&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"><span class="attr">color</span>:<span class="built_in">string</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="响应式表单-1"><a href="#响应式表单-1" class="headerlink" title="响应式表单"></a>响应式表单</h2><p>响应式表单适用于构建大型表单，且其跨代码的重用性强</p>
+<h3 id="控件分组"><a href="#控件分组" class="headerlink" title="控件分组"></a>控件分组</h3><p>响应式表单只是展示一个控件，会使用到 <code>FormControl</code>。而响应式表单在项目中往往适用于大型表单，即表单中不会只存在一个表单控件。而存在多个控件时，需要对表单控件进行分组。在响应式表单中，对控件进行分组，需要引入并实例化 <code>FormGroup</code>，其代码如下所示。</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; FormControl, FormGroup &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line">Charter=<span class="keyword">new</span> FormGroup(&#123;</span><br><span class="line">  <span class="attr">name</span>:<span class="keyword">new</span> FormControl(<span class="string">&#x27;&#x27;</span>),</span><br><span class="line">  <span class="attr">age</span>:<span class="keyword">new</span> FormControl()</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> [<span class="attr">formGroup</span>]=<span class="string">&quot;Charter&quot;</span> (<span class="attr">ngSubmit</span>)=<span class="string">&quot;consoleSubmit()&quot;</span>&gt;</span></span><br><span class="line">  名称：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name1&quot;</span>  <span class="attr">formControlName</span>=<span class="string">&quot;name&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  年龄<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span>  <span class="attr">formControlName</span>=<span class="string">&quot;age&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mt-2&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-sm&quot;</span>&gt;</span>提交表单<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">   <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>FormControl</code> 能让开发者管理单个控件，当存在控件分组时，<code>FromGroup</code> 实例能跟踪一组 <code>FormControl</code> 的状态。</p>
+<p>在 <code>Ts</code> 代码中实例化 <code>FromGroup</code> 后，在 <code>Html</code> 中，将 <code>Charter</code> 这个 <code>FormGroup</code> 通过 <code>FormGroup</code> 指令绑定到 <code>form</code> 元素上。由 <code>formControlName</code> 指令提供的 <code>formControlName</code> 属性将每个输入框和 <code>FormGroup</code> 中的定义 <code>FormControl</code> 关联起来。</p>
+<h3 id="嵌套表单组"><a href="#嵌套表单组" class="headerlink" title="嵌套表单组"></a>嵌套表单组</h3><p>在响应式表单中，建立更加复杂的表单时，对表单信息进行分组，将相关联的消息放到一个组，将该组又放到一个更大的组中，即嵌套表单组。使用嵌套分组能让开发者更加易于实现和管理表单。</p>
+<p>在填写个人信息表单时，地址是一个很常见的信息。在响应式表单中，地址是对表单进行分组的一个绝佳范例。其代码如下所示。</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">...<span class="comment">//代码块</span></span><br><span class="line">Charter=<span class="keyword">new</span> FormGroup(&#123;</span><br><span class="line">  <span class="attr">name</span>:<span class="keyword">new</span> FormControl(<span class="string">&#x27;&#x27;</span>),</span><br><span class="line">  <span class="attr">age</span>:<span class="keyword">new</span> FormControl()，</span><br><span class="line">  <span class="attr">address</span>:<span class="keyword">new</span> FormGroup(&#123;</span><br><span class="line">    <span class="attr">province</span>:<span class="keyword">new</span> FormControl(<span class="string">&#x27;&#x27;</span>),</span><br><span class="line">    <span class="attr">city</span>:<span class="keyword">new</span> FormControl(<span class="string">&#x27;&#x27;</span>),</span><br><span class="line">    <span class="attr">county</span>:<span class="keyword">new</span> FormControl(<span class="string">&#x27;&#x27;</span>),</span><br><span class="line">    <span class="attr">zip</span>:<span class="keyword">new</span> FormControl(<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line">...<span class="comment">//代码块</span></span><br></pre></td></tr></table></figure>
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> [<span class="attr">formGroup</span>]=<span class="string">&quot;Charter&quot;</span> (<span class="attr">ngSubmit</span>)=<span class="string">&quot;consoleSubmit()&quot;</span>&gt;</span></span><br><span class="line">  名称：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;name&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">  年龄：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;age&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">formGroupName</span>=<span class="string">&quot;address&quot;</span> <span class="attr">class</span>=<span class="string">&quot;mt-2&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      省：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;province&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;province&quot;</span>&gt;</span></span><br><span class="line">      市：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;city&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;city&quot;</span>&gt;</span></span><br><span class="line">      县：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;county&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;county&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    具体地址：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;zip&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;zip&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-success&quot;</span>&gt;</span>提交表单<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在上面代码中，<code>address</code> 为一个 <code>FormGroup</code>，在 <code>Html</code> 中通过 <code>FormGroupName</code> 指令将 <code>address</code> 这个 <code>FormGroup</code> 与视图关联起来。</p>
+<h3 id="FormBuilder-生成表单控件"><a href="#FormBuilder-生成表单控件" class="headerlink" title="FormBuilder 生成表单控件"></a>FormBuilder 生成表单控件</h3><p>在上面的 <code>Ts</code> 代码中实例化表单控件时，只有几个属性，一会是 <code>new FormGroup()</code>，一会是 <code>new FormControl()</code>，代码过于笨重，而 <code>Angular</code> 提供了 <code>FormBuilder</code> 服务来快捷生成表单。其代码如下所示</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; FormBuilder &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> fb:FormBuilder</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">Charter=<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">  <span class="attr">name</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">  <span class="attr">age</span>:[<span class="literal">null</span>],</span><br><span class="line">  <span class="attr">address</span>:<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">    <span class="attr">province</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">city</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">county</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">zip</span>:[<span class="string">&#x27;&#x27;</span>]</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> fb:FormBuilder</span>)</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+<p>使用 <code>FormBuilder</code> 创建表单和使用 <code>new FormGroup()</code> 和 <code>ngw FormControl()</code> 创建表单结果是一样的，但其代码跟加的简洁。</p>
+<blockquote>
+<p><code>FormBuilder</code> 服务有三个方法：<code>control()</code>、<code>group()</code> 和 <code>array()</code></p>
+</blockquote>
+<h3 id="FormArray-管理动态表单"><a href="#FormArray-管理动态表单" class="headerlink" title="FormArray 管理动态表单"></a>FormArray 管理动态表单</h3><p><code>FormArry</code> 是 <code>FormGroup</code> 的另一种选择，当开发者事先不知道子控件的具体数量是多少， <code>FormArray</code> 是一种很好的选择，它可以帮助开发者很好的管理匿名控件。</p>
+<p>应用场景：当表单中存在组件变化时，如在 <code>Charter</code> (人物)表单中，添加人物的 <code>enable</code> （能力）属性，但是人物的 <code>enable</code> 能力不可能只有一个，存在多个，比如驾驶，观察，组织等，不确定有多少。而  <code>FormArray</code> 就是应用于这种场景，其代码如下所示</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; FormArray, FormBuilder, Validators &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> fb:FormBuilder</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">Charter=<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">  <span class="attr">name</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">  <span class="attr">age</span>:[<span class="literal">null</span>],</span><br><span class="line">  <span class="attr">address</span>:<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">    <span class="attr">province</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">city</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">county</span>:[<span class="string">&#x27;&#x27;</span>]</span><br><span class="line">  &#125;),</span><br><span class="line">  <span class="comment">// enable:this.fb.array([this.fb.control(&#x27;&#x27;)])  //加入初始值</span></span><br><span class="line">  <span class="attr">enable</span>:<span class="built_in">this</span>.fb.array([])</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">get</span> <span class="title">enable</span>()&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.Charter.get(<span class="string">&#x27;enable&#x27;</span>) <span class="keyword">as</span> FormArray;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> fb:FormBuilder</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">addNewEnable</span>(<span class="params"></span>)</span>&#123;<span class="comment">//添加新input以添加新能力，同时可以加入验证器</span></span><br><span class="line">  <span class="built_in">this</span>.enable.push(<span class="built_in">this</span>.fb.control(<span class="string">&#x27;&#x27;</span>,Validators.required))</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">reduceEnable</span>(<span class="params">i</span>)</span>&#123;<span class="comment">//移除能力</span></span><br><span class="line">  <span class="built_in">this</span>.enable.removeAt(i);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> [<span class="attr">formGroup</span>]=<span class="string">&quot;Charter&quot;</span> (<span class="attr">ngSubmit</span>)=<span class="string">&quot;consoleForm()&quot;</span>&gt;</span></span><br><span class="line">  姓名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;name&quot;</span>&gt;</span></span><br><span class="line">  年龄：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;number&quot;</span> <span class="attr">name</span>=<span class="string">&quot;age&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;age&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;d-flex mt-2&quot;</span> <span class="attr">formGroupName</span>=<span class="string">&quot;address&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>地址：<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;clearfix&quot;</span>&gt;</span></span><br><span class="line">      省<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;province&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;province&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">      市<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;city&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;city&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">      县<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;county&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;county&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;mt-2&quot;</span> <span class="attr">formArrayName</span>=<span class="string">&quot;enable&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">span</span>&gt;</span>能力：<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let en of enable.controls;let i=index&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;d-flex&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> [<span class="attr">formControlName</span>]=<span class="string">&quot;i&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;reduceEnable(i)&quot;</span>&gt;</span>移除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;addNewEnable()&quot;</span>&gt;</span>添加新能力<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span> <span class="attr">class</span>=<span class="string">&quot;small text-muted&quot;</span>&gt;</span>表单的值：&#123;&#123;Charter.value|json&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> [<span class="attr">disabled</span>]=<span class="string">&quot;!Charter.valid&quot;</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>提交表单<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>其在浏览器页面中的效果（<code>Html</code> 代码中已移除样式类）如下所示</p>
+<p><img src="https://bingolil.github.io/images/angular-formarray.png" alt="FormArray管理动态表单"></p>
+<blockquote>
+<p> <strong>注意</strong>：在 <code>Html</code> 中，关于响应式表单的指令一律小写开头，如 <code>formGroup</code>，<code>formControlName</code>等，不能写成 <code>FormGroup</code>，<code>FormControlName</code>等，若大写开头会报错或绑定不成功</p>
+</blockquote>
+<p>在上面的 <code>Ts</code> 代码中，使用了<code>FormArray</code> 的 <code>push</code> 和 <code>removeAt()</code> 方法，<code>FormArray</code> 的常用方法如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>at()</td>
+<td>(index:number)</td>
+<td>获取指定位置的 FormControl</td>
+</tr>
+<tr>
+<td>push()</td>
+<td>(control:AbstractControl)</td>
+<td>在数组末尾添加一个 FromControl</td>
+</tr>
+<tr>
+<td>insert()</td>
+<td>(index:number,control:AbstractControl)</td>
+<td>在指定位置添加一个 FromControl</td>
+</tr>
+<tr>
+<td>removeAt()</td>
+<td>(index:number)</td>
+<td>移除指定位置的 FromControl</td>
+</tr>
+<tr>
+<td>setControl()</td>
+<td>(index:number,control:AbstractControl)</td>
+<td>替换指定位置的 FromControl</td>
+</tr>
+<tr>
+<td>setValue</td>
+<td>(value: any[])</td>
+<td>设置 FormArray 中各个控件的值，数据结构不匹配时会报错（建议到 <a target="_blank" rel="noopener" href="https://www.angular.cn/api/forms/FormArray#setvalue"><code>官网</code></a> 查看）</td>
+</tr>
+<tr>
+<td>patchValue</td>
+<td>(value: any[])</td>
+<td>设置 FormArray 中各个控件的值，数据结构不匹配时不会会报错（建议到 <a target="_blank" rel="noopener" href="https://www.angular.cn/api/forms/FormArray#patchvalue"><code>官网</code></a> 查看）</td>
+</tr>
+<tr>
+<td>resset()</td>
+<td>(value:any[])</td>
+<td>重置 FormArray 的值，并设置各个控件标记为 untouched 和 pristine 都为true</td>
+</tr>
+<tr>
+<td>getRawValue()</td>
+<td>()</td>
+<td>这个 FormArray 的聚合值，包括已禁用的控件</td>
+</tr>
+</tbody></table>
+<h2 id="响应式表单验证"><a href="#响应式表单验证" class="headerlink" title="响应式表单验证"></a>响应式表单验证</h2><p>表单验证是表单中最重要的部分之一，对于一个表单，有一个完善的表单验证能有效的降低后台开发者的工作时间。并且在提交表单时，减少项目的报错（提交的表单数据不符合需求），提高用户体验。</p>
+<h3 id="Angular-提供的验证器函数"><a href="#Angular-提供的验证器函数" class="headerlink" title="Angular 提供的验证器函数"></a><code>Angular</code> 提供的验证器函数</h3><p>对于响应式表单，<code>Angular</code> 提供了一组常用的验证器函数，这些函数接收一个表单控件，验证并根据验证的结果返回一个空值（<code>null</code>，其代表验证通过）或错误对象。当然，<code>HTML5</code> 存在一些内置的属性，用来进行原生的验证，如 <code>required</code>，<code>minLength</code>，<code>maxLength</code>，<code>pattern</code> 等，其用法如下所示</p>
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;name&quot;</span> <span class="attr">required</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>Angular</code> 提供的验证器函数时，需要在组件中导入 <code>Validators</code> 类，其基本用法如下所示。</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; FormBuilder, Validators &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span>;</span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> fb:FormBuilder</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">Charter=<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">  <span class="attr">name</span>:[<span class="string">&#x27;&#x27;</span>,Validators.required], <span class="comment">//使用验证</span></span><br><span class="line">  <span class="attr">age</span>:[<span class="literal">null</span>],</span><br><span class="line">  <span class="attr">address</span>:<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">    <span class="attr">province</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">city</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">county</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">zip</span>:[<span class="string">&#x27;&#x27;</span>]</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>使用 <code>Angular</code> 自带的 <code>Validators</code> 验证器，其提供的验证方案如下所示。</p>
+<blockquote>
+<p><code>Validators.min()</code>，要求控件大于等于某个值，一般用于验证数字</p>
+</blockquote>
+<p>用法：<code>const age=new FormControl(18,Validators.min(2))</code></p>
+<blockquote>
+<p><code>Validators.max()</code>，要求控件小于等于某个值，一般用于验证数字</p>
+</blockquote>
+<p>用法：<code>const age=new FormControl(0,Validators.max(2))</code></p>
+<blockquote>
+<p><code>Validators.required</code>，要求控件非空，一般用于验证 <code>input</code> 输入或 <code>select</code> 框</p>
+</blockquote>
+<p>用法：<code>const name=new FormControl(&#39;&#39;,Validators.required</code>)</p>
+<blockquote>
+<p><code>Validators.requiredTrue</code>，要求控件值为真，一般用于验证 <code>checkbox</code></p>
+</blockquote>
+<p>用法：<code>const control=new FormControl(&#39;&#39;,Validators.requiredTrue)</code></p>
+<blockquote>
+<p><code>Validators.email</code>，要求控件的值为 <code>email</code> 格式，一般用于验证输入为邮箱格式</p>
+</blockquote>
+<p>用法：<code>const owebEmail=new FormControl(&#39;&#39;,Validators.email)</code></p>
+<blockquote>
+<p><code>Validators.minLength()</code>，要求控件值的字符长度大于等于某个指定的长度，一般用于验证 <code>input</code> 的 <code>text</code> 输入类型</p>
+</blockquote>
+<p>用法：<code>const name=new FormControl(&#39;&#39;,Validators.minLength(8))</code></p>
+<blockquote>
+<p><code>Validators.maxLength()</code>，要求控件值的字符长度小于等于某个指定的长度，一般用于验证 <code>input</code> 的 <code>text</code> 输入类型</p>
+</blockquote>
+<p>用法：<code>const name=new FormControl(&#39;&#39;,Validators.maxLength(8))</code></p>
+<blockquote>
+<p><code>Validators.pattern()</code>，要求控件的值符合某种规则（正则表达式），一般用于验证 <code>input</code> 的 <code>text</code> 输入类型，判断其输入是否符合某种正则表达式</p>
+</blockquote>
+<p>用法：<code>const name=new FormControl(&#39;&#39;,Validators.pattern(&#39;[a-zA-Z]*&#39;))</code>，验证 <code>name</code> 控件的值只包含字母或为空格</p>
+<blockquote>
+<p><code>Validators.nullValidator</code>，该验证器什么也不做</p>
+</blockquote>
+<p>用法：<code>const name=new FormControl(&#39;&#39;,Validators.nullValidator)</code></p>
+<blockquote>
+<p><code>Validators.compose()</code>，将多个验证器合并成一个</p>
+</blockquote>
+<p>用法：<code>const name=new FormControl(&#39;&#39;,Validators.compose([Validators.required,Validators.pattern(&#39;[a-zA-Z]*&#39;)]))</code>，验证 <code>name</code> 控件必须要有值且只包含字母</p>
+<p>存在多个验证器时的另一种写法：<code>const name=new FormControl(&#39;&#39;,[Validators.required,Validators.pattern(&#39;[a-zA-Z]*&#39;)])</code>，直接去掉 <code>Validators.compose()</code></p>
+<blockquote>
+<p><code>Validators.asyncCompose()</code>，将多个异步验证器合并成一个</p>
+</blockquote>
+<h3 id="自定义验证器函数"><a href="#自定义验证器函数" class="headerlink" title="自定义验证器函数"></a>自定义验证器函数</h3><p>虽然 <code>Angular</code> 提供丰富的内置验证器函数，但是不能保证这些内置验证器函数能用于所有的表单，这时，就需要开发者创建自定义验证器。</p>
+<p>假如需要定义一个 <code>input</code> 的 <code>text</code> 框，禁止在框中出现 <code>jack</code> 的字符。其验证器代码如下所示</p>
+<p>forbidden.directive.ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="function"><span class="keyword">function</span> <span class="title">forbiddenValitors</span>(<span class="params">nameRe:<span class="built_in">RegExp</span></span>):<span class="title">ValidatorFn</span></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (control:AbstractControl):&#123;[key:<span class="built_in">string</span>]:<span class="built_in">any</span>&#125; | <span class="function"><span class="params">null</span> =&gt;</span>&#123;</span><br><span class="line">    <span class="keyword">const</span> forbidden=nameRe.test(control.value);</span><br><span class="line">    <span class="keyword">return</span> forbidden ? &#123;<span class="string">&#x27;forbiddenName&#x27;</span>:&#123;<span class="attr">value</span>:control.value&#125;&#125; : <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在响应式表单中使用自定义验证器</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; forbiddenValitors &#125; <span class="keyword">from</span> <span class="string">&#x27;../forbidden.directive&#x27;</span></span><br><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">Charter=<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">  <span class="attr">name</span>:[<span class="string">&#x27;&#x27;</span>,[forbiddenValitors(<span class="regexp">/jack/i</span>)]],</span><br><span class="line">  <span class="attr">age</span>:[<span class="literal">null</span>],</span><br><span class="line">  <span class="attr">address</span>:<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">    <span class="attr">province</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">city</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">county</span>:[<span class="string">&#x27;&#x27;</span>]</span><br><span class="line">  &#125;)</span><br><span class="line"> &#125;）</span><br></pre></td></tr></table></figure>
+
+<p>使用了自定义验证器后，在表单的 <code>name</code> 控制器中输入 <code>jack</code> 时，表单为 <code>invalid</code> 状态。</p>
+<h3 id="验证时错误提示"><a href="#验证时错误提示" class="headerlink" title="验证时错误提示"></a>验证时错误提示</h3><p>在表单中，用户的输入不符合要求时，表单一般都会提示错误（提高用户体验和告诉用户错在什么地方）。响应式表单中也可以实现该功能。代码如下所示</p>
+<p>Ts</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line">Charter=<span class="built_in">this</span>.fb.group(&#123; <span class="comment">//加入自定义验证器</span></span><br><span class="line">  <span class="attr">name</span>:[<span class="string">&#x27;&#x27;</span>,[Validators.required,Validators.minLength(<span class="number">4</span>),forbiddenValitor(<span class="regexp">/jack/i</span>)]],</span><br><span class="line">  ....<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">get</span> <span class="title">name</span>()&#123; <span class="comment">//必须，页面中需要 name</span></span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">this</span>.Charter.get(<span class="string">&#x27;name&#x27;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"> 姓名：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">formControlName</span>=<span class="string">&quot;name&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.invalid &amp;&amp; (name.dirty &amp;&amp; name.touched)&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.errors.required&quot;</span>&gt;</span>姓名是必填项<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.errors.minlength&quot;</span>&gt;</span>姓名字符必须大于4<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span>  *<span class="attr">ngIf</span>=<span class="string">&quot;name.errors.forbiddenName&quot;</span>&gt;</span>姓名不能存在jack字符<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- 提示：此处的 forbiddenName 需要和自定义验证器中 forbiddenName 字符一致 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="异步验证"><a href="#异步验证" class="headerlink" title="异步验证"></a>异步验证</h3><p>异步验证也是表单验证中重要的一部分，其应用的场景一般需要进行远程通讯。比如用户在使用表单进行注册时，规定用户名不能和已有的用户名相同，由于前端不知道已有的用户名有哪些，这就需要将已经输入的用户名去和后台数据库里面的用户名相匹配。</p>
+<p>其异步验证代码如下所示</p>
+<p>async.service.ts（返回 Observable 对象，模拟 http 请求）</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Observable,<span class="keyword">of</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> forbArr=[<span class="string">&#x27;jack&#x27;</span>,<span class="string">&#x27;lucy&#x27;</span>,<span class="string">&#x27;bing&#x27;</span>]</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;<span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AsycService</span> </span>&#123;</span><br><span class="line">  _can_use(s:<span class="built_in">string</span>):Observable&lt;<span class="built_in">boolean</span>&gt;&#123;</span><br><span class="line">    <span class="keyword">let</span> bool=forbArr.indexOf(s)&gt;-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">of</span>(bool)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>asyc-name-validator.ts（定义异步验证器）</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; Injectable &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AsyncValidator, AbstractControl, ValidationErrors&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map, catchError &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Observable &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AsycService &#125; <span class="keyword">from</span> <span class="string">&#x27;../asyc.service&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123; <span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span> &#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="class"><span class="keyword">class</span> <span class="title">AsycNameValidatorFn</span> <span class="title">implements</span> <span class="title">AsyncValidator</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> asycService:AsycService</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">  validate(ctrl:AbstractControl):<span class="built_in">Promise</span>&lt;ValidationErrors | <span class="literal">null</span>&gt; | Observable&lt;ValidationErrors | <span class="literal">null</span>&gt;&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">this</span>.asycService._can_use(ctrl.value).pipe(</span><br><span class="line">      map(<span class="function"><span class="params">xx</span>=&gt;</span>(xx ? &#123;<span class="attr">can_use</span>:<span class="literal">false</span>&#125; : <span class="literal">null</span>)),</span><br><span class="line">      catchError(<span class="function">()=&gt;</span><span class="literal">null</span>)</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>reactive.component.ts（使用异步验证器）</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; FormBuilder &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/forms&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; AsycNameValidatorFn &#125; <span class="keyword">from</span> <span class="string">&#x27;../asyc-name-validator&#x27;</span>;</span><br><span class="line">...<span class="comment">//代码块</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="title">constructor</span>(<span class="params"><span class="keyword">private</span> fb:FormBuilder,<span class="keyword">private</span> asycnameValidator:AsycNameValidatorFn</span>)</span> &#123; &#125;</span><br><span class="line"></span><br><span class="line">Charter=<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">  <span class="attr">name</span>:[<span class="string">&#x27;xx&#x27;</span>, </span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">validators</span>:[Validators.required], <span class="comment">// 同步校验通过才执行异步校验</span></span><br><span class="line">      <span class="attr">asyncValidators</span>:[<span class="built_in">this</span>.asycnameValidator.validate.bind(<span class="built_in">this</span>.asycnameValidator)],</span><br><span class="line">      <span class="attr">updateOn</span>: <span class="string">&#x27;blur&#x27;</span> <span class="comment">//blur 失去焦点时验证</span></span><br><span class="line">    &#125;</span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">age</span>:[<span class="number">10</span>],</span><br><span class="line">  <span class="attr">email</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">  <span class="attr">address</span>:<span class="built_in">this</span>.fb.group(&#123;</span><br><span class="line">    <span class="attr">province</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">city</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">county</span>:[<span class="string">&#x27;&#x27;</span>],</span><br><span class="line">    <span class="attr">zip</span>:[<span class="string">&#x27;&#x27;</span>]</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>当在页面中的 <code>name</code> <code>input</code> 框中输入 <code>jack</code>、<code>lucy</code> 或 <code>bing</code> 时，页面中表单状态为 <code>INVALID</code></p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Angular/" rel="tag"># Angular</a>
+              <a href="/tags/Angular%E8%A1%A8%E5%8D%95/" rel="tag"># Angular表单</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2018/12/19/angular/learn-5/" rel="prev" title="Angular学习-5-路由2">
+      <i class="fa fa-chevron-left"></i> Angular学习-5-路由2
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2019/01/21/angular/learn-7/" rel="next" title="Angular学习-7-表单2">
+      Angular学习-7-表单2 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E8%A1%A8%E5%8D%95%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">建立表单模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E8%A1%A8%E5%8D%95"><span class="nav-number">1.1.</span> <span class="nav-text">响应式表单</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A8%A1%E6%9D%BF%E9%A9%B1%E5%8A%A8%E8%A1%A8%E5%8D%95"><span class="nav-number">1.2.</span> <span class="nav-text">模板驱动表单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E8%A1%A8%E5%8D%95-1"><span class="nav-number">2.</span> <span class="nav-text">响应式表单</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A7%E4%BB%B6%E5%88%86%E7%BB%84"><span class="nav-number">2.1.</span> <span class="nav-text">控件分组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B5%8C%E5%A5%97%E8%A1%A8%E5%8D%95%E7%BB%84"><span class="nav-number">2.2.</span> <span class="nav-text">嵌套表单组</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FormBuilder-%E7%94%9F%E6%88%90%E8%A1%A8%E5%8D%95%E6%8E%A7%E4%BB%B6"><span class="nav-number">2.3.</span> <span class="nav-text">FormBuilder 生成表单控件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FormArray-%E7%AE%A1%E7%90%86%E5%8A%A8%E6%80%81%E8%A1%A8%E5%8D%95"><span class="nav-number">2.4.</span> <span class="nav-text">FormArray 管理动态表单</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%93%8D%E5%BA%94%E5%BC%8F%E8%A1%A8%E5%8D%95%E9%AA%8C%E8%AF%81"><span class="nav-number">3.</span> <span class="nav-text">响应式表单验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Angular-%E6%8F%90%E4%BE%9B%E7%9A%84%E9%AA%8C%E8%AF%81%E5%99%A8%E5%87%BD%E6%95%B0"><span class="nav-number">3.1.</span> <span class="nav-text">Angular 提供的验证器函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%AA%8C%E8%AF%81%E5%99%A8%E5%87%BD%E6%95%B0"><span class="nav-number">3.2.</span> <span class="nav-text">自定义验证器函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E6%97%B6%E9%94%99%E8%AF%AF%E6%8F%90%E7%A4%BA"><span class="nav-number">3.3.</span> <span class="nav-text">验证时错误提示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E9%AA%8C%E8%AF%81"><span class="nav-number">3.4.</span> <span class="nav-text">异步验证</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">bingolil</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">bingolil</span>
+</div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/muse.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
