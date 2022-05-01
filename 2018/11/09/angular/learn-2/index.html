@@ -29,7 +29,7 @@
 <meta property="og:image" content="https://bingolil.github.io/images/angular-cl.png">
 <meta property="og:image" content="https://bingolil.github.io/images/angular-session.png">
 <meta property="article:published_time" content="2018-11-08T16:00:00.000Z">
-<meta property="article:modified_time" content="2021-11-24T01:52:12.365Z">
+<meta property="article:modified_time" content="2022-05-01T14:07:19.699Z">
 <meta property="article:author" content="bingolil">
 <meta property="article:tag" content="Angular">
 <meta property="article:tag" content="Angular组件通讯">
@@ -194,7 +194,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-11-24 09:52:12" itemprop="dateModified" datetime="2021-11-24T09:52:12+08:00">2021-11-24</time>
+                <time title="修改时间：2022-05-01 22:07:19" itemprop="dateModified" datetime="2022-05-01T22:07:19+08:00">2022-05-01</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -308,7 +308,7 @@
 <h2 id="cookie-或-localstorage"><a href="#cookie-或-localstorage" class="headerlink" title="cookie 或 localstorage"></a>cookie 或 localstorage</h2><p>组件与组件间的通讯也可以使用浏览器的自带功能，即 <code>cookie</code> 或 <code>localstorage</code>，其模式如下图所示。</p>
 <p><img src="https://bingolil.github.io/images/angular-cl.png"></p>
 <p>在A组件中写入 <code>cookie</code> 或 <code>localstorage</code> 代码如下所示<br>A.component.ts</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">public</span> setLocal():<span class="built_in">void</span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.localStorage.setItem(<span class="string">&quot;json&quot;</span>,<span class="built_in">JSON</span>.stringify(&#123;<span class="attr">name</span>:<span class="string">&#x27;jack&#x27;</span>,<span class="attr">age</span>:<span class="number">24</span>&#125;));</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">.... <span class="comment">//代码块</span></span><br><span class="line"><span class="keyword">public</span> setLocal():<span class="built_in">void</span>&#123;</span><br><span class="line">  <span class="built_in">window</span>.localStorage.setItem(<span class="string">&quot;json&quot;</span>,<span class="built_in">JSON</span>.stringify(&#123;<span class="attr">name</span>:<span class="string">&#x27;jack&#x27;</span>,<span class="attr">age</span>:<span class="number">24</span>&#125;));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>A模板代码如下所示<br>A.component.html</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;setLocal()&quot;</span> <span class="attr">class</span>=<span class="string">&quot;btn btn-success&quot;</span>&gt;</span>设置localstorage<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -461,7 +461,7 @@
 <div class="copyright">
   
   &copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
